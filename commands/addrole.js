@@ -21,8 +21,8 @@ module.exports.run = async (bot, message, args) => {
     if(rMember.roles.has(role.id)) {
         return message.channel.send(`**${rMember.displayName} already has that role!**`)
     } else {
-        await rMember.addRole(role.id).catch((e) => {
-            console.log(e); //if error, log error
+        await rMember.addRole(role.id).catch(() => {
+            return message.channel.send("Unfortunately, an error occurred."); //if error, send error
         });
         message.channel.send(`**The role, ${role.name}, has been added to ${rMember.displayName}.**`); //if successful this message
     }
