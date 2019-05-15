@@ -5,6 +5,7 @@ const usage = require("../utils/usage.js");
 //Command Syntax: $mute <user> <reason> - Optional
 
 module.exports.run = async (bot, message, args) => {
+    if(message.channel.type == "dm") return;
     if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
     if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
     //if command runner not have required perms return errors noPerms()

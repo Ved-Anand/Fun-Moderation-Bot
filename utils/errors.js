@@ -16,7 +16,7 @@ module.exports.equalPerms = (message, user, perms) => { //parameters = message, 
         .setAuthor(message.author.username)
         .setColor(config.red)
         .setTitle("Error")
-        .addField(`${user} has perms`, perms);
+        .addField(`${user.user.username} has perms`, perms);
     message.channel.send(embed).then(m => m.delete(4000));  
 } /*if command is run and command author wants to run a command such as the ban command against a user with the same perms
  as the author, this command will run */

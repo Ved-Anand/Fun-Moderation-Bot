@@ -5,11 +5,12 @@ const usage = require("../utils/usage.js"); //get usage file
 //Command Syntax: kick <user> <reason> - reason is optional
 
 module.exports.run = async (bot, message, args) => {
+    if(message.channel.type == "dm") return;
+    if(args[0] == "help") return usage.reasonHelp("kick", message.channel);
     if(!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "KICK_MEMBERS");
     if(!message.guild.me.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "KICK_MEMBERS");
     //if author of command does not have required perms return with noPerms()
     //if bot not have required perms return with lack()
-    if(args[0] == "help") return usage.reasonHelp("kick", message.channel);
 
     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     let test = kUser; //will make sense later on

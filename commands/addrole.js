@@ -3,7 +3,8 @@ const errors = require("../utils/errors.js");  //get errors file (check out erro
 //Point of command: An easy way to add a role to a specified user
 //Command Syntax: $addrole <user> <role-name>
 
-module.exports.run = async (bot, message, args) => {  
+module.exports.run = async (bot, message, args) => {
+    if(message.channel.type == "dm") return;  
     if(!message.member.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.noPerms(message, "MANAGE_ROLES");
     if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
     //if author of command does not have required perms to run command, return with errors function noPerms()

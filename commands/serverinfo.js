@@ -3,6 +3,7 @@ const Discord = require("discord.js"); //get discord repo
 //Command Syntax: $serverinfo
 
 module.exports.run = async (bot, message, args) => {
+  if(message.channel.type == "dm") return;
   let sicon = message.guild.iconURL;
   let serverembed = new Discord.RichEmbed() //create kewl embed
     .setDescription("Server Information")

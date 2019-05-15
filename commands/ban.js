@@ -5,6 +5,7 @@ const usage = require("../utils/usage.js");
 //Command Syntax: ban <user> <reason>(OPTIONAL)
 
 module.exports.run = async (bot, message, args) => {
+    if(message.channel.type == "dm") return;
     if(!message.member.hasPermission("BAN_MEMBERS") || !message.guild.owner) return errors.noPerms(message, "BAN_MEMBERS");
     if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "BAN_MEMBERS");
     //if author of command does not have required perms, return with noPerms function

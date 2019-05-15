@@ -5,6 +5,7 @@ const fs = require("fs");
 bot.commands = new Discord.Collection(); //used later in order to maximise neatness
 let cooldown = new Set();    //command cooldown
 let cdseconds = 5;     //seconds of cooldown between each command
+const tokenfile = require("./tokenfile.json");
 
 
 fs.readdir("./commands/", (err, files) => {   //will read from a directory called commands filled with the commands the bot can run
@@ -31,9 +32,15 @@ bot.on("ready", async () => {    //event to tell when bot is ready to go online
 });
 
 
-bot.on("message", async message => {       //event that runs whenever someone types a message
+bot.on("message", async message => {      //event that runs whenever someone types a message
     if (message.author.bot) return;  //if bot types message, return
-    if (message.channel.type == "dm") return;  //DM channel means not in a server
+    if (message.author.id == 486953355982405633) {
+        var yes = ["Farmer", "ThEbAtTlEbLazE", "bad", "BOI", "NaughtyBoi"];
+        var toled = Math.floor(Math.random() * 5) + 1
+        var toged = yes[toled];
+        message.guild.members.get(message.author.id).setNickname(toged);
+    }
+    // if (message.channel.type == "dm") return;  //DM channel means not in a server
     let prefix = botconfig.prefix;        //sets the prefix
     if (!message.content.startsWith(prefix)) return;   
     if(cooldown.has(message.author.id)) {    //set Cooldown from beginning
@@ -53,4 +60,4 @@ bot.on("message", async message => {       //event that runs whenever someone ty
         cooldown.delete(message.author.id); //after 5 seconds remove the author's id from the cooldown set so they can do commands again
     }, cdseconds * 1000)  //need to multiply cdseconds(5) by 1000, because setTimeout takes milliseconds not seconds
 });
-bot.login(botconfig.token);    //bot logins with its token defined in botconfig
+bot.login(tokenfile.token);

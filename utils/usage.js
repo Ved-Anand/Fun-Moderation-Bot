@@ -7,3 +7,10 @@ module.exports.reasonHelp = (command, channel) => {
         .setColor(config.purple);
     channel.send(embed).then(m => m.delete(4000));
 }
+module.exports.noReasonHelp = (command, channel) => {
+    let embed = new Discord.RichEmbed()
+        .setTitle("Command Syntax:")
+        .setDescription("$" + command + " (user)")
+        .setColor(config.purple);
+    channel.send(embed).then(m => m.delete(4000));
+}
