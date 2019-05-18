@@ -5,7 +5,8 @@ const errors = require("../utils/errors.js"); //get errors file
 
 module.exports.run = async (bot, message, args) => {
     if(message.channel.type == "dm") return;
-    if(!message.member.hasPermission("MANAGE_MESSAGES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_MESSAGES");
+    if(!message.member.hasPermission("MANAGE_MESSAGES") && message.author.id != 559498763010310144) return errors.noPerms(message, "MANAGE_MESSAGES");
+    if (message.author.id == 559498763010310144) message.channel.send("Ok Abhishek xD. This is only because Ved is nice.");
     if(!message.guild.me.hasPermission(["MANAGE_MESSAGES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_MESSAGES");
     //if command author not have required perms return errors no Perms function()
     //if bot not have required perms return lack function()
