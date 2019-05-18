@@ -1,0 +1,5 @@
+# Ignore json file
+tokenfile.json
+
+# Ignore node_modules folder
+node_modules
