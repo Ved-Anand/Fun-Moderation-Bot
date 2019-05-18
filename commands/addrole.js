@@ -28,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send(`**The role, ${role.name}, has been added to ${rMember.displayName}.**`); //if successful this message
     }
 }
-module.exports.help = {  //help name, required when setting var props in index.js
-    name: "addrole"
+module.exports.config = {  //help name, required when setting var props in index.js
+    name: "addrole",
+    aliases: ["roleadd"]
 }

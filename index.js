@@ -3,10 +3,12 @@ const Discord = require("discord.js"); //gets discord
 const bot = new Discord.Client({disableEveryone: true}); //creates the Dicsord.Client
 const fs = require("fs");
 bot.commands = new Discord.Collection(); //used later in order to maximise neatness
+bot.aliases = new Discord.Collection();
 let cooldown = new Set();    //command cooldown
 let cdseconds = 5;     //seconds of cooldown between each command
 const tokenfile = require("./tokenfile.json");
 
+require("./utils/eventHandler.js")(bot)
 
 fs.readdir("./commands/", (err, files) => {   //will read from a directory called commands filled with the commands the bot can run
     if(err) console.log(err);   //log any errors 
@@ -18,24 +20,17 @@ fs.readdir("./commands/", (err, files) => {   //will read from a directory calle
 
     jsfile.forEach((f, i) => {     //for each one of the commands
         let props = require(`./commands/${f}`);    //set props to that file
-        console.log(`${f} loaded!`);
-        bot.commands.set(props.help.name, props); 
+        bot.commands.set(props.config.name, props); 
+        props.config.aliases.forEach(alias => {
+            bot.aliases.set(alias, props.config.name);
+        });
         //sets the bot commands to a .help.name found in module-exports in each of the commands
     });
 });
-
-
-bot.on("ready", async () => {    //event to tell when bot is ready to go online 
-    console.log(`${bot.user.username} is running on ${bot.guilds.size} servers!`);
-    console.log(`${bot.user.username} is successfully running.`);
-    bot.user.setActivity("MODERATING.GIF", {type: "STREAMING"});
-});
-
-
 bot.on("message", async message => {      //event that runs whenever someone types a message
     if (message.author.bot) return;  //if bot types message, return
     if (message.author.id == 486953355982405633) {
-        var yes = ["Farmer", "ThEbAtTlEbLazE", "bad", "BOI", "NaughtyBoi"];
+        var yes = ["Farmer", "ThEbAtTlEbLazE", "bad", "BOI", "NaughtyBoi"]; //someone in my class asked me to make this ;)
         var toled = Math.floor(Math.random() * 5) + 1
         var toged = yes[toled];
         message.guild.members.get(message.author.id).setNickname(toged);
@@ -53,7 +48,7 @@ bot.on("message", async message => {      //event that runs whenever someone typ
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
-    let commandfile = bot.commands.get(cmd.slice(prefix.length));
+    let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
     //commmandfile = true if the command(cmd)  withhout the prefix is equal to something in props.help.name
     if(commandfile) commandfile.run(bot, message, args); //run the parameters, bot, message, and args
     setTimeout(() => {  

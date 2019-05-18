@@ -20,6 +20,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send("**-Unfortunately an error occurred, try doing the command again, maybe the messages are over 14 days old?**");
     });
 }
-module.exports.help = {
-    name: "purge"
+module.exports.config = {
+    name: "purge",
+    aliases: ["del", "delete"]
 }

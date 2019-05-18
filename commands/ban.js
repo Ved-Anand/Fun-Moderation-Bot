@@ -43,6 +43,7 @@ module.exports.run = async (bot, message, args) => {
         return; //the point of this is to make sure that if user was not banned due to error, it will not send embed
     }
 }
-module.exports.help = {
-    name: "ban"
+module.exports.config = {
+    name: "ban",
+    aliases: ["banish", "remove"]
 }

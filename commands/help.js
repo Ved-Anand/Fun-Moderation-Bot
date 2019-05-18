@@ -19,6 +19,7 @@ module.exports.run = async (bot, message, args) => {
     toHelp.send(embed);
     // return toHelp.send("https://discordapp.com/oauth2/authorize?client_id=566802101183971363&scope=bot&permissions=2080898303");
 }
-module.exports.help = {
-    name: "help"
+module.exports.config = {
+    name: "help",
+    aliases: ["halp", "commands"]
 }

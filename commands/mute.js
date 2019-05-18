@@ -49,6 +49,7 @@ module.exports.run = async (bot, message, args) => {
     return message.channel.send(`${mutee} has been muted! Reason: ${reason}`);
 }
 
-module.exports.help = {
-    name: "mute"
+module.exports.config = {
+    name: "mute",
+    aliases: ["nospeak"]
 }

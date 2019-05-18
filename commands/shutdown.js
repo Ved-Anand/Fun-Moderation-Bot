@@ -9,6 +9,7 @@ module.exports.run = async (bot, message, args) => {
         return message.channel.send(`ERROR: ${e.message}`);
     }
 }
-module.exports.help = {
-    name: "shutdown"
+module.exports.config = {
+    name: "shutdown",
+    aliases: ["stop", "exit"]
 }

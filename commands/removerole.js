@@ -27,6 +27,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send(`**The role ${role.name} has been successfully removed from ${rMember.displayName}.**`);
     }
 }
-module.exports.help = {
-    name: "removerole"
+module.exports.config = {
+    name: "removerole",
+    aliases: ["roleremove"]
 }

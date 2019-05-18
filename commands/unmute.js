@@ -23,6 +23,7 @@ module.exports.run = async (bot, message, args) => {
     mutee.removeRole(muterole.id); //remove role
     return message.channel.send(`${mutee} has been unmuted!`);
 }
-module.exports.help = {
-    name: "unmute"
+module.exports.config = {
+    name: "unmute",
+    aliases: []
 }

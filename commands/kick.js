@@ -43,6 +43,7 @@ module.exports.run = async (bot, message, args) => {
         return; //if kick not work, test.user will exist so will not send embed
     }
 }
-module.exports.help = {
-    name: "kick"
+module.exports.config = {
+    name: "kick",
+    aliases: []
 }

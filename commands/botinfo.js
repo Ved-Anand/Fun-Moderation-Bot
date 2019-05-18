@@ -12,6 +12,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Created On", bot.user.createdAt);
     message.channel.send(botembed); //send embed
 }
-module.exports.help = {
-  name:"botinfo"
+module.exports.config = {
+  name: "botinfo",
+  aliases: ["binfo"]
 }

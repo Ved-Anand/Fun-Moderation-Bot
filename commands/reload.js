@@ -14,6 +14,7 @@ module.exports.run = async (bot, message, args) => {
         return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\``)
     }
 }
-module.exports.help = {
-    name: "reload"
+module.exports.config = {
+    name: "reload",
+    aliases: ["creload"]
 }

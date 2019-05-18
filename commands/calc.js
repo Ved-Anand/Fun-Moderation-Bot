@@ -39,6 +39,7 @@ module.exports.run = async (bot, message, args) => {
         return Math.round(num * multiplier) / multiplier;
     }
 }
-module.exports.help = {
-    name: "calc"
+module.exports.config = {
+    name: "calc",
+    aliases: ["calculate", "eval", "evaluate"]
 } //calc 2 + 2

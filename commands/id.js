@@ -6,6 +6,7 @@ module.exports.run = async (bot, message, args) => {
     if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return;
     return message.channel.send(ided.id);
 }
-module.exports.help = {
-    name: "id"
+module.exports.config = {
+    name: "id",
+    aliases: []
 }

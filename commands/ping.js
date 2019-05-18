@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
         m.edit(`${response}: Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ping)}\``);
     })
 }
-module.exports.help = {
-    name: "ping"
+module.exports.config = {
+    name: "ping",
+    aliases: []
 }
