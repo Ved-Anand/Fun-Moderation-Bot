@@ -21,10 +21,10 @@ module.exports.equalPerms = (message, user, perms) => { //parameters = message, 
 } /*if command is run and command author wants to run a command such as the ban command against a user with the same perms
  as the author, this command will run */
 
-module.exports.botuser = (message) => { //parameters = message
+module.exports.botuser = (message, command) => { //parameters = message
     let embed = new Discord.RichEmbed()
         .setTitle("Error")
-        .setDescription("You cannot ban a bot!")
+        .setDescription(`You cannot ${command} a bot!`)
         .setColor(config.red);
     message.channel.send(embed).then(m => m.delete(4000));
 } // if command is run, and specified user = bot, return by running this function 

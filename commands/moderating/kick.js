@@ -22,7 +22,7 @@ module.exports = {
         if(!kUser) return errors.cantfindUser(message.channel);
         //if specified user not found, return with cantfinduser()
 
-        if(kUser.id === bot.user.id) return errors.botuser(message); //if specified user = bot, return botuser()
+        if(kUser.id === bot.user.id) return errors.botuser(message, "kick"); //if specified user = bot, return botuser()
 
         let kReason = args.join(" ").slice(22);
         if(!kReason) kReason = "No reason given";

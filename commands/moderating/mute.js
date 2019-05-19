@@ -20,7 +20,7 @@ module.exports = {
         if(!mutee) return errors.cantfindUser(message.channel);
         //if specified user was not found return with erros function cantfinduser()
 
-        if(mutee.id == bot.user.id) return errors.botuser(message); //if specified user bot, return botuser()
+        if(mutee.id == bot.user.id) return errors.botuser(message, "mute"); //if specified user bot, return botuser()
 
         let reason = args.slice(1).join(" "); 
         if(!reason) reason = "No reason was given!"; //default reason = No reason was given
