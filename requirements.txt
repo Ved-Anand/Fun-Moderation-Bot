@@ -2,3 +2,5 @@ Requirements:
 Discord.js - npm install discord.js --save
 
 Fractional: - npm install fraction.js --save
+
+Urban: - npm install urban --save
