@@ -9,7 +9,6 @@ module.exports = {
         if (message.author.id != ownerid) return;
         if(!args[0]) return message.channel.send("Please provide a command to reload!");
         let commandName = args[0].toLowerCase();
-        if (commandName === "reload") return message.channel.send("No reloading the reload command silly!");
         if(!args[1]) return message.channel.send("Please specify the directory the command is in!");
         let directory = args[1].toLowerCase();
         try {
