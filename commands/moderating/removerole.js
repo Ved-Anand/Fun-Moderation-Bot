@@ -19,7 +19,7 @@ module.exports = {
         let rMember = message.mentions.members.first() || message.guild.members.find(m => m.user.tag === args[0]) || message.guild.members.get(args[0]);
         if(!rMember) return errors.cantfindUser(message.channel);
         //if specified user not found return cantfindUser()
-        if (rMember.id === bot.user.id) return errors.botuser(message, "removerole");
+        if (rMember.id === bot.user.id) return errors.botuser(message, "remove a role from");
         let role = message.guild.roles.find(r => r.name == args[1]) || message.guild.roles.find(r => r.id == args[1]) || message.mentions.roles.first();
         if(!role) return errors.noRole(message.channel);
         //if specified role not found return noRole()

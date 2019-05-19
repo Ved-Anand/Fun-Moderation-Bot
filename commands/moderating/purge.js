@@ -16,7 +16,7 @@ module.exports = {
 
         if(args[0] == "help") return message.channel.send("Usage: $purge (number of messages)");
         if(isNaN(args[0])) return message.channel.send("Usage: $purge (number of messages)");
-        if(args[0] > 100) return message.channel.send("Please enter a number of messages to delete less than 100 to prevent lag :)");
+        if (args[0] > 100) return message.channel.send("No deleting over 100 messages at a time to prevent lag, please!");
         if(args[0] == 0) return message.channel.send("You cannot delete 0 messages!");
         const fetched = await message.channel.fetchMessages({limit: args[0]});
         message.channel.bulkDelete(fetched).catch(() => {
