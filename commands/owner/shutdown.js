@@ -2,7 +2,7 @@ const { ownerid } = require("../../botconfig.json");
 module.exports = {
     config: {
         name: "shutdown",
-        aliases: ["stop", "exit"]
+        aliases: ["stop", "exit", "reboot"]
     },
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;

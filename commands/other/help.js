@@ -6,22 +6,24 @@ module.exports = {
         aliases: ["halp", "commands"]    
     },
     run: async (bot, message, args) => {
-        let toHelp = message.author;
-        var embed = new RichEmbed()
-            .setTitle("Bot Commands:")
-            .setColor(config.purple)
-            .setDescription("Note: In commands that want a reason, the reason is completely optional.")
-            .addField("Addrole Command:", "Usage: $addrole <user> <role-name>")
-            .addField("Ban Command:", "Usage: $ban <user> <reason>")
-            .addField("Botinfo Command:", "Usage: $botinfo")
-            .addField("Kick Command:", "Usage: $kick <user> <reason>")
-            .addField("Mute Command:", "Usage: $mute <user> <reason>")
-            .addField("Ping Command:", "Usage: $ping")
-            .addField("Removerole Command:", "Usage: $removerole <user> <role-name>")
-            .addField("Serverinfo Command:", "Usage: $serverinfo")
-            .addField("Unmute Command:", "Usage: $unmute <user> <reason>")
-            .setFooter("Note 2: Most of these commands will do nothing if they are not used in a server.");
-        toHelp.send(embed);
-        // return toHelp.send("https://discordapp.com/oauth2/authorize?client_id=566802101183971363&scope=bot&permissions=2080898303");
+        if (!args[0]) {
+            let toSend = ['```xl', 'Moderating', 'Games', 'Other', '```'];
+            message.channel.send("**Please Search a module by doing $help <module-name>. The modules are as follow, below.**");
+            return message.channel.send(toSend.join("\n"));
+        } else {
+            if (args[0].toLowerCase() != "moderating" && args[0].toLowerCase() != "other" && args[0].toLowerCase() != "games") return message.channel.send("That module was not found!");
+            if (args[0].toLowerCase() === "moderating") {
+                let toSend = ['```xl', '$addrole: "Add a role to someone"', '$ban: "Ban someone from the guild"', '$kick: "Kick someone from the guild"', '$mute: "Stop someone from talking"', '$purge: "Delete some messages from a channel fast"', '$removerole: "Remove a role from someone"', '$unmute: "Unmute someone whos already muted"', '$warn: "Warn someone if theyre doing something bad"', '```'];
+                return message.channel.send(toSend.join("\n"));
+            } 
+            if (args[0].toLowerCase() === "other") {
+                let toSend = ['```xl', '$botinfo: "Get some info on the bot"', '$calc: "Calculate a mathematical problem"', '$help: "Displays this message"', '$ping: "Gets the bots ping"', '$serverinfo: "Gets some info on the server"', '$urban: "Look up something on the urban dictionary"', '```'];
+                return message.channel.send(toSend.join("\n"));
+            }
+            if (args[0].toLowerCase() === "games") {
+                let toSend = ['```xl', '$8ball: "Get a cheesy answer to a question"', '```'];
+                return message.channel.send(toSend.join("\n"));
+            }
+        }
     }
 }

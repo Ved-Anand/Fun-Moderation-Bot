@@ -2,7 +2,7 @@ const { ownerid } = require("../../botconfig.json");
 module.exports = {
     config: {
         name: "reload",
-        aliases: ["creload"]
+        aliases: ["creload", "refresh", "fix"]
     },
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
@@ -18,7 +18,7 @@ module.exports = {
             bot.commands.set(commandName, pull);
             return message.channel.send(`The command \`${args[0].toUpperCase()}\` has been reloaded!`);
         } catch(e) {
-            return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\``);
+            return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\` Error: ${e.message}`);
         }
     }
 }
