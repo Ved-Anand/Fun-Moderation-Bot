@@ -1,4 +1,4 @@
-const { ownerid } = require("../../botconfig.json");
+const { ownerid } = require("../../tokenfile.json");
 module.exports = {
     config: {
         name: "shutdown",
