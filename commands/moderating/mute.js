@@ -21,10 +21,9 @@ module.exports = {
         //if specified user was not found return with erros function cantfinduser()
 
         if(mutee.id == bot.user.id) return errors.botuser(message, "mute"); //if specified user bot, return botuser()
-
+        if (mutee.hasPermission("MANAGE_ROLES")) return errors.equalPerms(message, mutee, "MANAGE_ROLES");
         let reason = args.slice(1).join(" "); 
         if(!reason) reason = "No reason was given!"; //default reason = No reason was given
-
         let muterole = message.guild.roles.find(r => r.name === "muted") //look to see if muted role already exists
         if(!muterole) { //if not
             try{

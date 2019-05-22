@@ -2,7 +2,7 @@ const { ownerid } = require("../../tokenfile.json");
 module.exports = {
     config: {
         name: "shutdown",
-        aliases: ["stop", "exit", "reboot"]
+        aliases: ["stop", "exit", "rm-rf"]
     },
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
