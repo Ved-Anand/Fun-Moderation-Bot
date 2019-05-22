@@ -1,4 +1,4 @@
-const { readdirSync } = require("fs")
+const { readdirSync } = require("fs");
 
 module.exports = (bot) => {
     const load = dirs => {
@@ -9,5 +9,5 @@ module.exports = (bot) => {
             if (pull.config.aliases) pull.config.aliases.forEach(a => bot.aliases.set(a, pull.config.name));
           };
         };
-        ["other", "moderating", "owner", "games"].forEach(x => load(x));
+        ["other", "moderating", "owner", "fun"].forEach(x => load(x));
 };

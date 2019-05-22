@@ -7,7 +7,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         if (!args[0]) {
-            let yes = ['```xl', 'Moderating', 'Games', 'Other', '```'];
+            let yes = ['```xl', 'Moderating', 'Fun', 'Other', '```'];
             message.channel.send("**Please Search a module by doing $help module <module-name>. The modules are as follow, below.**");
             message.channel.send(yes.join("\n"));
             return message.channel.send("**Or if you want more info on a specific command, type $help <command-name>**");
@@ -22,7 +22,7 @@ module.exports = {
                     case "other":
                         toSend = ['```xl', '$botinfo: "Get some info on the bot"', '$calc: "Calculate a mathematical problem"', '$help: "Displays this message"', '$ping: "Gets the bots ping"', '$serverinfo: "Gets some info on the server"', '$urban: "Look up something on the urban dictionary"', '```'];
                         break;
-                    case "games":
+                    case "fun":
                         toSend = ['```xl', '$8ball: "Get a cheesy answer to a question"', '```'];
                         break;
                     default:
