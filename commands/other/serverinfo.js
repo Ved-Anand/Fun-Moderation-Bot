@@ -8,7 +8,6 @@ module.exports = {
     aliases: ["serverdesc"] 
   },
   run: async (bot, message, args) => {
-    if(message.channel.type == "dm") return;
     let sicon = message.guild.iconURL;
     let serverembed = new RichEmbed() //create kewl embed
       .setDescription("Server Information")

@@ -5,7 +5,6 @@ module.exports = {
         aliases: ["stop", "exit", "rm-rf"]
     },
     run: async (bot, message, args) => {
-        if (message.channel.type == "dm") return;
         if (message.author.id != ownerid) return;
         try {
             await message.channel.send(". . . Bot is shutting down . . .");

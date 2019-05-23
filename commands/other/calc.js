@@ -7,9 +7,8 @@ module.exports = {
         aliases: ["calculate", "eval", "evaluate"]
     },
     run: async (bot, message, args) => {
-        if (args[0] == "help") {
-            return message.channel.send("Usage: $calc (mathematical expression) \n Example: $calc 2 + 2  \n Example 2: $calc round 7/8 + 2/8");
-        }
+        let cmd = message.content.split(" ")[0];
+        if (args[0] == "help") return message.channel.send(`Usage: ${cmd} (mathematical expression) \n Example: ${cmd} 2 + 2  \n Example 2: ${cmd} round 7/8 + 2/8`);
         if (!args[0]) return message.channel.send("Mathematical Expression not found, type $calc help for more info on this.");
         let evaled;
         try {

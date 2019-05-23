@@ -2,7 +2,7 @@ const randomPuppy = require("random-puppy");
 module.exports = {
     config: {
         name: "dog",
-        aliases: ["woof", "bark"]
+        aliases: ["woof", "bark", "doge"]
     },
     run: async (bot, message, args) => {
         randomPuppy()

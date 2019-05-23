@@ -10,12 +10,12 @@ module.exports = {
         aliases: ["banish", "remove"]
     },
     run: async (bot, message, args) => {
-        if(message.channel.type == "dm") return;
         if(!message.member.hasPermission("BAN_MEMBERS") || !message.guild.owner) return errors.noPerms(message, "BAN_MEMBERS");
         if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "BAN_MEMBERS");
         //if author of command does not have required perms, return with noPerms function
         //if bot not have required perms, return with lack function
-        if (args[0] == "help") return usage.reasonHelp("ban", message.channel);
+        let cmd = message.content.split(" ")[0];
+        if (args[0] == "help") return usage.reasonHelp(cmd, message.channel);
 
         let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         let test = bUser; //will make sense later on

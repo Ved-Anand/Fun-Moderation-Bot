@@ -9,12 +9,12 @@ module.exports = {
         aliases: ["nospeak"]
     },
     run: async (bot, message, args) => {
-        if(message.channel.type == "dm") return;
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if command runner not have required perms return errors noPerms()
         //if bot not have required perms return errors function lack()
-        if(args[0] == "help") return usage.reasonHelp("mute", message.channel);
+        let cmd = message.content.split(" ")[0];
+        if(args[0] == "help") return usage.reasonHelp(cmd, message.channel);
 
         let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
         if(!mutee) return errors.cantfindUser(message.channel);

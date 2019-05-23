@@ -5,9 +5,9 @@ module.exports = {
         aliases: []
     },
     run: async (bot, message, args) => {
-        if (message.channel.type == "dm") return;
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
-        if (args[0] == "help") return message.channel.send("Usage: $warn <user> <reason>");
+        let cmd = message.content.split(" ")[0];
+        if (args[0] == "help") return message.channel.send(`Usage: ${cmd} <user> <reason>`);
         let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
         if (!mutee) return message.channel.send("User not found.");
         if (mutee.id === bot.user.id) return errors.botuser(message, "warn");

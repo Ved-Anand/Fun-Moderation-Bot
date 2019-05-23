@@ -10,8 +10,8 @@ module.exports = {
         aliases: []
     },
     run: async (bot, message, args) => {
-        if(message.channel.type == "dm") return;
-        if(args[0] == "help") return usage.reasonHelp("kick", message.channel);
+        let cmd = message.content.split(" ")[0];
+        if(args[0] == "help") return usage.reasonHelp(cmd, message.channel);
         if(!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "KICK_MEMBERS");
         if(!message.guild.me.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "KICK_MEMBERS");
         //if author of command does not have required perms return with noPerms()

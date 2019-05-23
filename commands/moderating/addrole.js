@@ -8,12 +8,12 @@ module.exports = {
         aliases: ["roleadd"]
     },
     run: async (bot, message, args) => {
-        if(message.channel.type == "dm") return;  
         if(!message.member.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if author of command does not have required perms to run command, return with errors function noPerms()
         //if bot lack required perms, return with errors function lack()
-        if (args[0] == "help") return message.channel.send("Command Syntax: $addrole (user) <role-name>");
+        let cmd = message.content.split(" ")[0];
+        if (args[0] == "help") return message.channel.send(`Command Syntax: ${cmd} (user) <role-name>`);
 
         let rMember = message.mentions.members.first() || message.guild.members.find(m => m.user.tag === args[0]) || message.guild.members.get(args[0]);
         if(!rMember) return errors.cantfindUser(message.channel);

@@ -31,15 +31,27 @@ module.exports = {
                 return message.channel.send(toSend.join("\n"));
             } else {
                 let msg;
+                let pull;
+                let gud;
                 switch (args[0].toLowerCase()) {
                     case "addrole":
-                        msg = ['```xl', 'Point of Command: Add a role to someone', 'Command Syntax: "$addrole <user> <rolename>"', 'Example: "$addrole @Chuck Moderator"', '```'];
+                        pull = require(`../moderating/addrole.js`);
+                        if (pull.config.aliases == "") {
+                            gud = "No aliases for this command.";
+                        } else {
+                            gud = pull.config.aliases;
+                        }
+                        msg = ['```xl', 'Point of Command: Add a role to someone', 'Command Syntax: "$addrole <user> <rolename>"', 'Example: "$addrole @Chuck Moderator"', `Aliases: ${gud}`, '```'];
                         break;
                     case "ban":
-                        msg = ['```xl', 'Point of Command: Ban someone', 'Command Syntax: "$ban <user> <reason?>"', 'Example: "$ban @Jonas being rude"', '```'];
+                        pull = require(`../moderating/ban.js`);
+                        if (pull.config.aliases == "") gud = "No aliases for this command.";
+                        msg = ['```xl', 'Point of Command: Ban someone', 'Command Syntax: "$ban <user> <reason?>"', 'Example: "$ban @Jonas being rude"', `Aliases: ${gud}`, '```'];
                         break;
                     case "kick":
-                        msg = ['```xl', 'Point of Command: Kick someone', 'Command Syntax: "$kick <user> <reason?>"', 'Example: "$kick @Jack not following the rules"', '```'];
+                        pull = require(`../moderating/kick.js`);
+                        if (pull.config.aliases == "") gud = "No aliases for this command.";
+                        msg = ['```xl', 'Point of Command: Kick someone', 'Command Syntax: "$kick <user> <reason?>"', 'Example: "$kick @Jack not following the rules"', `Aliases: ${gud}`, '```'];
                         break;
                     case "mute":
                         msg = ['```xl', 'Point of Command: Mute someone', 'Command Syntax: "$mute <user> <reason?>"', 'Example: "$mute @Chuck spam"', '```'];
