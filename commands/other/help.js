@@ -36,58 +36,78 @@ module.exports = {
                 switch (args[0].toLowerCase()) {
                     case "addrole":
                         pull = require(`../moderating/addrole.js`);
-                        if (pull.config.aliases == "") {
-                            gud = "No aliases for this command.";
-                        } else {
-                            gud = pull.config.aliases;
-                        }
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases."; } else {gud = pull.config.aliases;}
                         msg = ['```xl', 'Point of Command: Add a role to someone', 'Command Syntax: "$addrole <user> <rolename>"', 'Example: "$addrole @Chuck Moderator"', `Aliases: ${gud}`, '```'];
                         break;
                     case "ban":
                         pull = require(`../moderating/ban.js`);
-                        if (pull.config.aliases == "") gud = "No aliases for this command.";
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
                         msg = ['```xl', 'Point of Command: Ban someone', 'Command Syntax: "$ban <user> <reason?>"', 'Example: "$ban @Jonas being rude"', `Aliases: ${gud}`, '```'];
                         break;
                     case "kick":
                         pull = require(`../moderating/kick.js`);
-                        if (pull.config.aliases == "") gud = "No aliases for this command.";
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
                         msg = ['```xl', 'Point of Command: Kick someone', 'Command Syntax: "$kick <user> <reason?>"', 'Example: "$kick @Jack not following the rules"', `Aliases: ${gud}`, '```'];
                         break;
                     case "mute":
-                        msg = ['```xl', 'Point of Command: Mute someone', 'Command Syntax: "$mute <user> <reason?>"', 'Example: "$mute @Chuck spam"', '```'];
+                        pull = require(`../moderating/mute.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Mute someone', 'Command Syntax: "$mute <user> <reason?>"', 'Example: "$mute @Chuck spam"', `Aliases: ${gud}`, '```'];
                         break;
                     case "purge":
-                        msg = ['```xl', 'Point of Command: Delete some messages from a channel fast', 'Command Syntax: "$purge <amount of messages>"', 'Example: "$purge 50"', '```'];
+                        pull = require(`../moderating/purge.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Delete some messages from a channel fast', 'Command Syntax: "$purge <amount of messages>"', 'Example: "$purge 50"', `Aliases: ${gud}`, '```'];
                         break;
                     case "removerole":
-                        msg = ['```xl', 'Point of Command: Remove a role from someone', 'Command Syntax: "$removerole <user> <rolename>"', 'Example: "$removerole @Jonas Moderator"', '```'];
+                        pull = require(`../moderating/removerole.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Remove a role from someone', 'Command Syntax: "$removerole <user> <rolename>"', 'Example: "$removerole @Jonas Moderator"', `Aliases: ${gud}`, '```'];
                         break;
                     case "unmute":
-                        msg = ['```xl', 'Point of Command: Unmute someone whos muted', 'Command Syntax: "$unmute <user>"', 'Example: "$unmute @Jack"', '```'];
+                        pull = require(`../moderating/unmute.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Unmute someone whos muted', 'Command Syntax: "$unmute <user>"', 'Example: "$unmute @Jack"', `Aliases: ${gud}`, '```'];
                         break;
                     case "warn":
-                        msg = ['```xl', 'Point of Command: Warn someone if theyre disobeying the rules', 'Command Syntax: "$warn <user> <reason>"', 'Example: "$warn @Chuck abusing permissions"', '```'];
+                        pull = require(`../moderating/warn.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Warn someone if theyre disobeying the rules', 'Command Syntax: "$warn <user> <reason>"', 'Example: "$warn @Chuck abusing permissions"', `Aliases: ${gud}`, '```'];
                         break;
                     case "botinfo":
-                        msg = ['```xl', 'Point of Command: Get some stats on the bot', 'Command Syntax: "$botinfo"', 'Example: "$botinfo"', '```'];
+                        pull = require(`../other/botinfo.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Get some stats on the bot', 'Command Syntax: "$botinfo"', 'Example: "$botinfo"', `Aliases: ${gud}`, '```'];
                         break;
                     case "calc":
-                        msg = ['```xl', 'Point of Command: Calculate mathematical equation', 'Command Syntax: "$calc <equation>"', 'Example: "$calc 2+2"', '```'];
+                        pull = require(`../moderating/calc.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Calculate mathematical equation', 'Command Syntax: "$calc <equation>"', 'Example: "$calc 2+2"', `Aliases: ${gud}`, '```'];
                         break;
                     case "help":
-                        msg = ["Displays this message!"]
+                        pull = require(`../other/help.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = [`Displays this message!, Aliases: ${gud}`]
                         break;
                     case "ping":
-                        msg = ['```xl', 'Point of Command: Get the bots ping', 'Command Syntax: "$ping"', 'Example: "$ping"', '```'];
+                        pull = require(`../other/ping.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Get the bots ping', 'Command Syntax: "$ping"', 'Example: "$ping"', `Aliases: ${gud}`, '```'];
                         break;
                     case "serverinfo":
-                        msg = ['```xl', 'Point of Command: Get some info on the server youre in', 'Command Syntax: "$serverinfo"', 'Example: "$serverinfo"', '```'];
+                        pull = require(`../other/serverinfo.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Get some info on the server youre in', 'Command Syntax: "$serverinfo"', 'Example: "$serverinfo"', `Aliases: ${gud}`, '```'];
                         break;
                     case "urban":
-                        msg = ['```xl', 'Point of Command: Look something up on urban dictionary', 'Command Syntax: "$urban <thing to look up>"', 'Example: "$urban dogs"', '```'];
+                        pull = require(`../other/urban.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Look something up on urban dictionary', 'Command Syntax: "$urban <thing to look up>"', 'Example: "$urban dogs"', `Aliases: ${gud}`, '```'];
                         break;
                     case "8ball":
-                        msg = ['```xl', 'Point of Command: Get a cheesy answer to a question', 'Command Syntax: "$8ball <question>"', 'Example: "$8ball am i smart?"', '```'];
+                        pull = require(`../fun/8ball.js`);
+                        if (pull.config.aliases == "" || !pull.config.aliases) {gud = "This command has no aliases.";} else {gud = pull.config.aliases;}
+                        msg = ['```xl', 'Point of Command: Get a cheesy answer to a question', 'Command Syntax: "$8ball <question>"', 'Example: "$8ball am i smart?"', `Aliases: ${gud}`, '```'];
                         break;
                     default:
                         return message.channel.send("That command was not found!");
