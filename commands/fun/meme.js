@@ -3,14 +3,14 @@ const snekfetch = require("snekfetch");
 module.exports = {
     config: {
         name: "meme",
-        aliases: ["memes"]
+        aliases: ["memes", "mem"]
     },
     run: async (bot, message, args) => {
         let reddit = [
             "dankmemes"
         ]
-        let subreddit = reddit[Math.floor(Math.random() * reddit.length - 1)];
-        // let subreddit = reddit[0];
+        // let subreddit = reddit[Math.floor(Math.random() * reddit.length - 1)];
+        let subreddit = reddit[0];
         let msg = await message.channel.send("...Generating...");
         randomPuppy(subreddit).then(url => {
             snekfetch.get(url).then(async res => {

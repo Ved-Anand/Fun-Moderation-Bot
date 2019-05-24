@@ -1,5 +1,3 @@
-const { RichEmbed } = require("discord.js");
-const config = require("../../botconfig.json");
 module.exports = {
     config: {
         name: "help",

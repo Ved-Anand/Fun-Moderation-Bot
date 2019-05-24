@@ -5,7 +5,7 @@ module.exports = {
         aliases: []
     },
     run: async (bot, message, args) => {
-        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+        if (!message.member.hasPermission("ADMINISTRATOR")) return errors.noPerms(message, "ADMINISTRATOR");
         let cmd = message.content.split(" ")[0];
         if (args[0] == "help") return message.channel.send(`Usage: ${cmd} <user> <reason>`);
         let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
