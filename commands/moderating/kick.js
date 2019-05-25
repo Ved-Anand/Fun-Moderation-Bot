@@ -7,9 +7,12 @@ const usage = require("../../utils/usage.js"); //get usage file
 module.exports = {
     config: {
         name: "kick",
-        aliases: []
+        usage: "$kick <user> <reason>",
+        description: "Kick someone if they're misbehaving, not permanent unlike a ban however",
+        permissions: "kick members"
     },
     run: async (bot, message, args) => {
+        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         let cmd = message.content.split(" ")[0];
         if(args[0] == "help") return usage.reasonHelp(cmd, message.channel);
         if(!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "KICK_MEMBERS");

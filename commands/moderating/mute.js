@@ -6,9 +6,13 @@ const usage = require("../../utils/usage.js");
 module.exports = {
     config: {
         name: "mute",
-        aliases: ["nospeak"]
+        aliases: ["nospeak"],
+        usage: "$mute <user> <reason>",
+        description: "Stop someone from talking if they're spamming, etc.",
+        permissions: "manage roles"
     },
     run: async (bot, message, args) => {
+        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if command runner not have required perms return errors noPerms()

@@ -5,9 +5,13 @@ const { RichEmbed } = require("discord.js"); //get discord repo
 module.exports = {
   config: {
     name:"serverinfo",
-    aliases: ["serverdesc"] 
+    aliases: ["serverdesc"],
+    usage: "$serverinfo",
+    description: "Get some information on the server you're in!",
+    permissions: "none" 
   },
   run: async (bot, message, args) => {
+    if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
     let sicon = message.guild.iconURL;
     let serverembed = new RichEmbed() //create kewl embed
       .setDescription("Server Information")

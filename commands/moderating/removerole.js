@@ -5,9 +5,13 @@ const errors = require("../../utils/errors.js"); //get errors file
 module.exports = {
     config: {
         name: "removerole",
-        aliases: ["roleremove"]
+        aliases: ["roleremove"],
+        usage: "$removerole <user>",
+        description: "The counter to $addrole, remove a role from someone",
+        permissions: "manage roles"
     },
     run: async (bot, message, args) => {
+        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if author of command does not have required perms to run command, return with errors function noPerms()

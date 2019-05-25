@@ -1,7 +1,9 @@
 module.exports = {
     config: {
         name: "8ball",
-        aliases: []
+        usage: "$8ball <question>",
+        description: "Get a cheesy answer to a question",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         let cmd = message.content.split(" ")[0];

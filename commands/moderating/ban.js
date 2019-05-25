@@ -7,9 +7,13 @@ const usage = require("../../utils/usage.js");
 module.exports = {
     config: {
         name: "ban",
-        aliases: ["banish", "remove"]
+        aliases: ["banish", "remove"],
+        usage: "$ban <user> <reason>",
+        description: "Ban someone permanently from the server if they really misbehave.",
+        permissions: "ban members"
     },
     run: async (bot, message, args) => {
+        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("BAN_MEMBERS") || !message.guild.owner) return errors.noPerms(message, "BAN_MEMBERS");
         if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "BAN_MEMBERS");
         //if author of command does not have required perms, return with noPerms function

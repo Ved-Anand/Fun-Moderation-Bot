@@ -1,7 +1,10 @@
 module.exports = {
     config: {
         name: "ping",
-        aliases: ["latency"]
+        aliases: ["latency"],
+        usage: "$ping",
+        description: "Get the bot's ping!",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         message.channel.send("Pinging...").then(m => {

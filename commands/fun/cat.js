@@ -2,7 +2,9 @@ const { get } = require("snekfetch");
 module.exports = {
     config: {
         name: "cat",
-        aliases: []
+        usage: "$cat",
+        description: "Get an image of a random cat",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         let msg = await message.channel.send(". . . Generating . . .");

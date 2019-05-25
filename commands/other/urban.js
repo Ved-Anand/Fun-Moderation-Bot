@@ -3,7 +3,10 @@ const usage = require("../../utils/usage.js");
 module.exports = {
     config: {
         name: "urban",
-        aliases: ["define", "see", "lookup"]
+        aliases: ["define", "see", "lookup"],
+        usage: "$urban <thing to lookup>",
+        description: "Look something up on the urban dictionary",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         var targetWord = args == "" ? urban.random() : urban(args);

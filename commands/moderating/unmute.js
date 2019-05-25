@@ -6,9 +6,12 @@ const usage = require("../../utils/usage.js"); //get usage file
 module.exports = {
     config: {
         name: "unmute",
-        aliases: []
+        usage: "$unmute <user>",
+        description: "If you've muted someone, unmute them with this command.",
+        permissions: "manage roles"
     },
     run: async (bot, message, args) => {
+        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if command author not have required perms return noPerms()

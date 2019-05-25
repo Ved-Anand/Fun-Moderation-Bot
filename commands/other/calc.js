@@ -4,7 +4,10 @@ var Fraction = require("fractional").Fraction;
 module.exports = {
     config: {
         name: "calc",
-        aliases: ["calculate", "eval", "evaluate"]
+        aliases: ["calculate", "eval", "evaluate"],
+        usage: "$calc <mathematical equation>",
+        description: "Calculate a mathematical equation",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         let cmd = message.content.split(" ")[0];

@@ -3,7 +3,10 @@ const snekfetch = require("snekfetch");
 module.exports = {
     config: {
         name: "meme",
-        aliases: ["memes", "mem"]
+        aliases: ["memes", "mem"],
+        usage: "$meme",
+        description: "Get a meme from the dankmemes subreddit",
+        permissions: "none"
     },
     run: async (bot, message, args) => {
         let reddit = [

@@ -5,7 +5,10 @@ const { RichEmbed } = require("discord.js"); //get discord repo
 module.exports = { 
   config: {
     name: "botinfo",
-    aliases: ["binfo"]
+    aliases: ["binfo"],
+    usage: "$botinfo",
+    description: "Get some stats on the bot",
+    permissions: "none"
   },
   run: async (bot, message, args) => {
     let bicon = bot.user.displayAvatarURL; //Avatar

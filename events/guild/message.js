@@ -1,7 +1,8 @@
 const { prefix } = require("../../botconfig.json");
 
 module.exports = async (bot, message) => { 
-    if(message.author.bot || message.channel.type === "dm") return;
+    if (message.author.bot) return;
+    // if (message.channel.type === "dm" && !message.content.startsWith(`${prefix}help`)) return;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
 
