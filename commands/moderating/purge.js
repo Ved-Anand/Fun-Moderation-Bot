@@ -25,6 +25,6 @@ module.exports = {
         await message.channel.bulkDelete(fetched).catch(() => {
             message.channel.send("**-Unfortunately an error occurred, try doing the command again, maybe the messages are over 14 days old?**");
         });
-        message.channel.send(`Successfully deleted ${args[0]} messages`).then(msg => msg.delete(2000));
+        message.channel.send(`Successfully deleted at most ${args[0]} messages`).then(msg => msg.delete(2000));
     }
 }
