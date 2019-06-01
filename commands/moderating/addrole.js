@@ -1,7 +1,7 @@
 const errors = require("../../utils/errors.js");  //get errors file (check out errors file before looking at commands)
 //Point of command: An easy way to add a role to a specified user
 //Command Syntax: $addrole <user> <role-name>
-
+const second = require("../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "addrole",
@@ -13,7 +13,7 @@ module.exports = {
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.noPerms(message, "MANAGE_ROLES");
-        if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
+        //if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
         //if author of command does not have required perms to run command, return with errors function noPerms()
         //if bot lack required perms, return with errors function lack()
         let cmd = message.content.split(" ")[0];
@@ -30,10 +30,13 @@ module.exports = {
         if(rMember.roles.has(role.id)) {
             return message.channel.send(`**${rMember.displayName} already has that role!**`)
         } else {
-            await rMember.addRole(role.id).catch(() => {
-                return message.channel.send("Unfortunately, an error occurred."); //if error, send error
-            });
-            message.channel.send(`**The role, ${role.name}, has been added to ${rMember.displayName}.**`); //if successful this message
+            try {
+                await rMember.addRole(role.id);
+                message.channel.send(`**The role, ${role.name}, has been added to ${rMember.displayName}.**`); //if successful this message
+            } catch(e) {
+                let id = second.getError(e.message);
+                message.channel.send(`Unfortunately an error occurred. Error ID: ${id}`);
+            }
         }
     }
 }

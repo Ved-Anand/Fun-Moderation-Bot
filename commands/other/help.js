@@ -12,7 +12,7 @@ module.exports = {
     run: async (bot, message, args) => {
         if(args[0]) {
             let command = args[0];
-            if(bot.commands.has(command) && command != "shutdown" && command != "reload" && command != "id") {
+            if(bot.commands.has(command) && command != "shutdown" && command != "reload" && command != "id" && command != "eval") {
                 command = bot.commands.get(command);
                 var SHembed = new RichEmbed()
                     .setColor(botconfig.orange)

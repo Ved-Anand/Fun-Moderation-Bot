@@ -3,7 +3,7 @@ const errors = require("../../utils/errors.js"); //get errors file
 const usage = require("../../utils/usage.js");
 //Point of command: An easy way to ban someone using the bot
 //Command Syntax: ban <user> <reason>(OPTIONAL)
-
+const second = require("../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "ban",
@@ -22,7 +22,6 @@ module.exports = {
         if (args[0] == "help") return usage.reasonHelp(cmd, message.channel);
 
         let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        let test = bUser; //will make sense later on
         if(!bUser) return errors.cantfindUser(message.channel);
         //if specified user not found, return with function cantFindUser()
 
@@ -42,14 +41,12 @@ module.exports = {
             .addField("Banned In", message.channel)
             .addField("Time", message.createdAt)
             .addField("Reason", bReason);
-
-        await bUser.ban(bReason).catch(() => {  //try to ban user, if cannot 
-            return message.channel.send(":x: I am unable to kick this user, does he have higher permissions than me?");
-        });
-        if(!test.user) {
-            return message.channel.send(banEmbed) //if ban was successful test.user will not exist, so then it will send embed
-        } else {
-            return; //the point of this is to make sure that if user was not banned due to error, it will not send embed
+        try {
+            bUser.ban(bReason);
+            message.channel.send(banEmbed);
+        } catch(e) {
+            let id = second.getError(e.message);
+            message.channel.send(`Unfortunately, an error occurred. Error ID: ${id}`);
         }
     }
 }
