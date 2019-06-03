@@ -1,6 +1,6 @@
 Requirements: 
-Discord.js - npm install discord.js --save
-
-Fractional: - npm install fraction.js --save
-
-Urban: - npm install urban --save
+Discord.js
+Snekfetch
+Superagent
+Urban
+RandomPuppy

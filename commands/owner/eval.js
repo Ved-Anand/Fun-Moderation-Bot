@@ -3,10 +3,7 @@ const { ownerid } = require("../../tokenfile.json");
 module.exports = {
     config: {
         name: "eval",
-        description: "Evaluates some code",
-        usage: "$eval <code>",
-        permissions: "Bot owner!",
-        aliases: ["find", "calc", "calculate"],
+        aliases: ["find", "calc", "calculate"]
     },
     run: async (bot, message, args) => {
         if (message.author.id != ownerid) return;

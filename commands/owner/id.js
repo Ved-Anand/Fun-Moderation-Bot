@@ -2,7 +2,6 @@ const { ownerid } = require("../../tokenfile.json");
 module.exports = {
     config: {
         name: "id",
-        aliases: []
     },
     run: async (bot, message, args) => {
         if (message.author.id != ownerid) return;
