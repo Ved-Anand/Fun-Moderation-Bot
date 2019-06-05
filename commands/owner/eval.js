@@ -11,7 +11,7 @@ module.exports = {
         try {
             let evaluated = inspect(eval(toEval, { depth: 0 } ))
             if (!toEval) return message.channel.send("Error: `Cannot evaluate air!`");
-            if (evaluated.length > 1899) return message.channel.send("Error: `Request is too long.`");
+            if (evaluated.length > 1950) return message.channel.send("Error: `Request is too long.`");
             let hrDiff = process.hrtime(process.hrtime());
             message.channel.send(`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.*\`\`\`javascript\n${evaluated}\n\`\`\``, { maxLength: 1900 });
         } catch(e) {

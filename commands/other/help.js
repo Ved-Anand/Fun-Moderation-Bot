@@ -18,7 +18,7 @@ module.exports = {
                 } else {
                     command = bot.aliases.get(command);
                     //console.log(command);
-                    fornow = bot.commands.get(command);
+                    let fornow = bot.commands.get(command);
                     command = fornow;
                 }
                 var SHembed = new RichEmbed()
