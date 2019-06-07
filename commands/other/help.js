@@ -1,6 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const botconfig = require("../../botconfig.json");
 const prefix = botconfig.prefix;
+const gethelp = require("../../utils/usage.js");
 module.exports = {
     config: {
         name: "help",
@@ -12,24 +13,8 @@ module.exports = {
     run: async (bot, message, args) => {
         if(args[0]) {
             let command = args[0];
-            if(bot.commands.has(command) || bot.aliases.has(command)) {
-                if (bot.commands.has(command)) {
-                    command = bot.commands.get(command)
-                } else {
-                    command = bot.aliases.get(command);
-                    //console.log(command);
-                    let fornow = bot.commands.get(command);
-                    command = fornow;
-                }
-                var SHembed = new RichEmbed()
-                    .setColor(botconfig.orange)
-                    .setAuthor(`Command Help:`)
-                    .setThumbnail(bot.user.displayAvatarURL)
-                    .setDescription(`\n\n**Command:** ${command.config.name}\n**Description:** ${command.config.description || "No Description"}\n**Usage:** ${command.config.usage || "No Usage"}\n**Required permissions:** ${command.config.permissions || "Bot Owner!"}\n**Aliases:** ${command.config.aliases || "No aliases"}`);
-                message.channel.send(SHembed);
-            } else {
-                return message.channel.send("That command was not found, do $help to get a list of the commands");
-            }
+            let embed = gethelp.fullHelp(bot, command);
+            return message.channel.send(embed);
         } else {
             let Sembed = new RichEmbed()
                 .setColor(botconfig.purple)
