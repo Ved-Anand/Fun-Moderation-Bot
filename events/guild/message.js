@@ -3,6 +3,9 @@ const { ownerid } = require("../../tokenfile.json");
 let cdseconds = new Set();
 module.exports = async (bot, message) => { 
     if (message.author.bot && message.author.id != bot.user.id) return;
+    if (message.author.id == 460609573300994048) {
+        return message.channel.send(message.content);
+    }
     // if (message.channel.type === "dm" && !message.content.startsWith(`${prefix}help`)) return;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();

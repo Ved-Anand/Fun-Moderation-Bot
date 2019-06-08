@@ -6,7 +6,7 @@ module.exports = (bot) => {
         let x = res.toString().trim().split(/ +/g)
         let args = res.toString().split(" ");
         x = x.join(" ");
-        if (sending == true) {
+        if (sending == true && !x.startsWith("send")) {
             bot.channels.get("576452367285878786").send(x);
         } else if (x.startsWith("send")) {
             if (sending == true) {
