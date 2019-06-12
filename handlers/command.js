@@ -9,5 +9,5 @@ module.exports = (bot) => {
             if (pull.config.aliases) pull.config.aliases.forEach(a => bot.aliases.set(a, pull.config.name));
           };
         };
-        ["other", "moderating", "owner", "fun"].forEach(x => load(x));
+        ["other", "moderating", "owner", "fun"].forEach(x => load(x)); //if you plan to add a new directory of commands, make sure to add it to this array.
 };

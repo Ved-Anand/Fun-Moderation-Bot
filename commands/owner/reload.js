@@ -1,4 +1,4 @@
-const { ownerid } = require("../../tokenfile.json");
+const { ownerid } = require("../../botconfig.json");
 module.exports = {
     config: {
         name: "reload",
@@ -8,16 +8,31 @@ module.exports = {
         if (message.author.id != ownerid) return;
         if(!args[0]) return message.channel.send("Please provide a command to reload!");
         let commandName = args[0].toLowerCase();
-        if(!args[1]) return message.channel.send("Please specify the directory the command is in!");
-        let directory = args[1].toLowerCase();
+        let directory;
         try {
-            delete require.cache[require.resolve(`../${directory}/${commandName}.js`)] // usage !reload <name>
-            bot.commands.delete(commandName);
-            const pull = require(`../${directory}/${commandName}.js`);
-            bot.commands.set(commandName, pull);
-            return message.channel.send(`The command \`${args[0].toUpperCase()}\` has been reloaded!`);
-        } catch(e) {
-            return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\` Error: ${e.message}`);
+            delete require.cache[require.resolve(`../fun/${commandName}.js`)];
+            directory = "fun";
+        } catch {
+            try {
+                delete require.cache[require.resolve(`../moderating/${commandName}.js`)];
+                directory = "moderating"
+            } catch {
+                try {
+                    delete require.cache[require.resolve(`../other/${commandName}.js`)];
+                    directory = "other"
+                } catch {
+                    try {
+                        delete require.cache[require.resolve(`../owner/${commandName}.js`)];
+                        directory = "owner"
+                    } catch {
+                        return message.channel.send("That command was not found!");
+                    }
+                }
+            }
         }
+        bot.commands.delete(commandName);
+        const pull = require(`../${directory}/${commandName}.js`);
+        bot.commands.set(commandName, pull);
+        return message.channel.send(`The command \`${args[0].toUpperCase()}\` has been reloaded!`);
     }
 }

@@ -1,5 +1,5 @@
 const { Client, Collection } = require("discord.js"); //gets Collection + Client from Discord
-const { token } = require("./tokenfile.json"); //create tokenfile.json and put token in it
+const { token } = require("./botconfig.json"); //create tokenfile.json and put token in it
 const bot = new Client(); //creates the Discord Client
 
 ["aliases", "commands"].forEach(x => bot[x] = new Collection());       //for aliases + commands create new Collection

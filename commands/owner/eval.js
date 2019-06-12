@@ -1,5 +1,5 @@
 const { inspect } = require("util");
-const { ownerid } = require("../../tokenfile.json");
+const { ownerid } = require("../../botconfig.json");
 module.exports = {
     config: {
         name: "eval",
