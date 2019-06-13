@@ -1,5 +1,5 @@
 # Plugins
-##Note: This is still in beta-testing mode, and errors may occur.
+## Note: This is still in beta-testing mode, and errors may occur.
 This bot allows you to create your own custom plugins. To create a plugin, in your botconfig file, make a new element called "plugins", and set it equal to an array with the names of your plugin(s). You can have as many as you want. 
 ```json
 {
