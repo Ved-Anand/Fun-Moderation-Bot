@@ -1,13 +1,12 @@
 const { RichEmbed } = require("discord.js");
-let config = require("../botconfig.json");
+const config = require("../src/loaders/reader");
 module.exports.fullHelp = (bot, command) => {
     let inf;
     if (bot.commands.has(command) || bot.aliases.has(command)) {
         if (bot.commands.has(command)) {
             inf = bot.commands.get(command);
         } else {
-            inf = bot.aliases.get(command);
-            inf = bot.commands.get(command);
+            inf = bot.commands.get(bot.aliases.get(command));
         }
         var SHembed = new RichEmbed()
             .setColor(config.orange)

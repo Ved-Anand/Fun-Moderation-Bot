@@ -1,6 +1,5 @@
 const { RichEmbed } = require("discord.js");
-const botconfig = require("../../botconfig.json");
-const prefix = botconfig.prefix;
+const { prefix } = require("../../src/loaders/reader");
 const gethelp = require("../../utils/usage.js");
 module.exports = {
     config: {

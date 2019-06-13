@@ -1,4 +1,4 @@
-const { ownerid } = require("../../botconfig.json");
+const { ownerid } = require("../../src/loaders/reader");
 module.exports = {
     config: {
         name: "reload",

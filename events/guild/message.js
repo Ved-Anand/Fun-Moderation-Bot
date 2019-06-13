@@ -1,8 +1,9 @@
-const { prefix } = require("../../botconfig.json");
-const { ownerid } = require("../../botconfig.json");
+const config = require("../../src/loaders/reader");
 let cdseconds = new Set();
 module.exports = async (bot, message) => { 
     if (message.author.bot && message.author.id != bot.user.id) return;
+    let prefix = config.prefix;
+    let ownerid = config.ownerid;
     // if (message.channel.type === "dm" && !message.content.startsWith(`${prefix}help`)) return;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();

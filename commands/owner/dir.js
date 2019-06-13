@@ -1,5 +1,5 @@
-const { ownerid } = require("../../botconfig.json");
-const { readdir } = require('fs');
+const { ownerid } = require("../../src/loaders/reader")
+const { readdir, lstatSync } = require('fs');
 module.exports = {
     config: {
         name: "dir",
@@ -13,10 +13,14 @@ module.exports = {
             if (err) return message.channel.send("That directory was not found.");
             //let jsfile = files.filter(f => f.split(".").pop() === "js");
             let jsfile = files;
-            if (jsfile.length === 0) return message.channel.send("0 files were found in that directory.");
+            if (jsfile.length === 0) return message.channel.send("0 javascript files were found in that directory.");
             let tosend = [];
             jsfile.forEach((f, i) => {
-                tosend.push(f);
+                if (lstatSync(`./commands/${directory}/${f}`).isDirectory()) {
+                    var gudname = f;
+                    gudname = gudname.concat(" **directory**")
+                } else var gudname = f;
+                tosend.push(gudname);
             });
             return message.channel.send(tosend);
         });

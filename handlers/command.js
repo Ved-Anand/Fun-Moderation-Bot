@@ -1,4 +1,4 @@
-const { readdirSync } = require("fs");
+const { readdirSync, lstatSync, readdir } = require("fs");
 
 module.exports = (bot) => {
     const load = dirs => {
@@ -9,5 +9,15 @@ module.exports = (bot) => {
             if (pull.config.aliases) pull.config.aliases.forEach(a => bot.aliases.set(a, pull.config.name));
           };
         };
-        ["other", "moderating", "owner", "fun"].forEach(x => load(x)); //if you plan to add a new directory of commands, make sure to add it to this array.
+        readdir(`./commands/`, (err, files) => {
+          if (err) console.log(err);
+          var bettername = [];
+          files.forEach((f, i) => {
+            if (lstatSync(`./commands/${f}`)) {
+              bettername.push(f);
+            }
+          });
+          bettername.forEach(x => load(x));
+        });
+        require("./aliases")(bot)
 };

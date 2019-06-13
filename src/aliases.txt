@@ -1,0 +1,5 @@
+a
+k:kick
+speak:unmute
+getout:kick
+doskey:alias

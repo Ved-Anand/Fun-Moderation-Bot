@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-let config = require("../botconfig.json");  //botconfig not only contains token and default prefix, but also set colors
+let config = require("../src/loaders/reader");
 
 
 module.exports.noPerms = (message, perm) => {  //parameters = message, and permission
