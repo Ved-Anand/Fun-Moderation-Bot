@@ -1,5 +1,4 @@
 const { readdirSync, lstatSync, readdir } = require("fs");
-const config = require("../src/loaders/reader");
 module.exports = (bot) => {
     const load = dirs => {
         const commands = readdirSync(`./src/commands/${dirs}/`).filter(d => d.endsWith('.js'));
@@ -19,13 +18,4 @@ module.exports = (bot) => {
           });
           bettername.forEach(x => load(x));
         });
-        require("./aliases")(bot)
-        if (config.plugins && config.plugins.length) {
-          console.log('. . . Plugins loading . . .');
-          for (const plugin of config.plugins) {
-            const pluginFn = require(`../src/plugins/${plugin}`);
-            pluginFn.run(bot, config);
-          }
-          console.log(`Successfully loaded ${config.plugins.length} plugin(s).`);
-        }
 };
