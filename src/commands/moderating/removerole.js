@@ -1,4 +1,4 @@
-const errors = require("../../utils/errors.js"); //get errors file
+const errors = require("../../../utils/errors.js"); //get errors file
 //Point of command: remove a role from someone
 //Command Syntax: $removerole <user> <role-name>
 

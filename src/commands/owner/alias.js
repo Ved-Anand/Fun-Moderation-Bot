@@ -1,5 +1,5 @@
 const { appendFileSync } = require("fs");
-const { ownerid } = require("../../src/loaders/reader");
+const { ownerid } = require("../../loaders/reader");
 module.exports = {
     config: {
         name: "alias",

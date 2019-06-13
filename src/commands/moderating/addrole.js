@@ -1,7 +1,7 @@
-const errors = require("../../utils/errors.js");  //get errors file (check out errors file before looking at commands)
+const errors = require("../../../utils/errors");  //get errors file (check out errors file before looking at commands)
 //Point of command: An easy way to add a role to a specified user
 //Command Syntax: $addrole <user> <role-name>
-const second = require("../../utils/othererrors.js");
+const second = require("../../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "addrole",

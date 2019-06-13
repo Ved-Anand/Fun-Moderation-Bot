@@ -1,5 +1,5 @@
-const errors = require("../../utils/errors.js"); // get errors file
-const usage = require("../../utils/usage.js");
+const errors = require("../../../utils/errors.js"); // get errors file
+const usage = require("../../../utils/usage.js");
 //Point of command: Mute someone if they're spamming or being annoying, etc.
 //Command Syntax: $mute <user> <reason> - Optional
 

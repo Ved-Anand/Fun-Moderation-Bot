@@ -1,5 +1,5 @@
 const urban = require("urban");
-const usage = require("../../utils/usage.js");
+const usage = require("../../../utils/usage.js");
 module.exports = {
     config: {
         name: "urban",

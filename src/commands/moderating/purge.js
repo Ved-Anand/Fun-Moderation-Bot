@@ -1,7 +1,7 @@
-const errors = require("../../utils/errors.js"); //get errors file
+const errors = require("../../../utils/errors.js"); //get errors file
 //Point of command: Delete messages from a channel fast
 //Command Syntax: $purge <number of messages>
-const second = require("../../utils/othererrors.js");
+const second = require("../../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "purge",

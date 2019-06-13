@@ -1,4 +1,4 @@
-const { fullHelp } = require("../../utils/usage.js");
+const { fullHelp } = require("../../../utils/usage");
 module.exports = {
     config: {
         name: "8ball",

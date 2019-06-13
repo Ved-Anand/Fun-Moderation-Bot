@@ -1,5 +1,5 @@
-const errors = require("../../utils/errors.js") //get errors file
-const usage = require("../../utils/usage.js"); //get usage file
+const errors = require("../../../utils/errors.js") //get errors file
+const usage = require("../../../utils/usage.js"); //get usage file
 //Point of Command: Unmute someone who's muted
 //Command Syntax: $unmute <user> (reason) - optional
 

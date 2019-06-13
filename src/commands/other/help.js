@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
-const { prefix } = require("../../src/loaders/reader");
-const gethelp = require("../../utils/usage.js");
+const { prefix, purple } = require("../../loaders/reader");
+const gethelp = require("../../../utils/usage.js");
 module.exports = {
     config: {
         name: "help",
@@ -16,7 +16,7 @@ module.exports = {
             return message.channel.send(embed);
         } else {
             let Sembed = new RichEmbed()
-                .setColor(botconfig.purple)
+                .setColor(purple)
                 .setAuthor(`Help:`)
                 .setThumbnail(bot.user.displayAvatarURL)
                 .setTimestamp()

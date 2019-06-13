@@ -1,4 +1,4 @@
-const errors = require("../../utils/errors.js");
+const errors = require("../../../utils/errors.js");
 module.exports = {
     config: {
         name: "nick",

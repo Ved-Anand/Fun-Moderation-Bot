@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js"); //get discord repository
-const errors = require("../../utils/errors.js"); //get errors file
-const usage = require("../../utils/usage.js"); //get usage file
+const errors = require("../../../utils/errors.js"); //get errors file
+const usage = require("../../../utils/usage.js"); //get usage file
 //Point of command: An easy way to kick someone from a server
 //Command Syntax: kick <user> <reason> - reason is optional
 

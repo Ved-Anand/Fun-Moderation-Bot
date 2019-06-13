@@ -1,9 +1,9 @@
 const { RichEmbed } = require("discord.js"); //get discord repository
-const errors = require("../../utils/errors.js"); //get errors file
-const usage = require("../../utils/usage.js");
+const errors = require("../../../utils/errors"); //get errors file
+const usage = require("../../../utils/usage");
 //Point of command: An easy way to ban someone using the bot
 //Command Syntax: ban <user> <reason>(OPTIONAL)
-const second = require("../../utils/othererrors.js");
+const second = require("../../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "ban",

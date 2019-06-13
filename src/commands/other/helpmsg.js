@@ -1,4 +1,4 @@
-const { findError } = require("../../utils/othererrors.js");
+const { findError } = require("../../../utils/othererrors.js");
 module.exports = {
     config: {
         name: "helpmsg",

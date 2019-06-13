@@ -1,4 +1,4 @@
-const { ownerid } = require("../../src/loaders/reader")
+const { ownerid } = require("../../loaders/reader");
 const { readdir, lstatSync } = require('fs');
 module.exports = {
     config: {
