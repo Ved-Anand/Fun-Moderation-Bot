@@ -1,6 +1,14 @@
 # Meet Fyre, a simple moderation bot!
 Fyre is a simple moderation bot for [Discord](https://discordapp.com/) intended for moderation, yet it also contains a variety of other features. Fyre is built using the powerful [discord.js library](https://discord.js.org/)
 
+## T.O.C (Table of Contents):
+[Setup](#setup)
+[Commands](#commands) -
+  [Moderating](#moderating)
+  [Fun](#fun)
+  [Owner](#owner)
+  [Other](#other)
+[Plugins](#plugins)
 ## Setup:
 1. Install a node.js version 10 or higher, if not already having done so.
 2. Clone/Download this repository.
@@ -49,4 +57,5 @@ These options go in the botconfig.json file.
 | status | Moderating servers! | What the bot is displayed as doing. |
 | prefix | **!** | The bot's command prefix. |
 
-[test](src/plugins/README.md)
+## Plugins:
+Although this bot will allow you to make plugins, this entire mode still has bugs as it is still being tested. However, if you want to make a plugin with these risks, click [here](src/plugins/README.md).
