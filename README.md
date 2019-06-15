@@ -1,5 +1,5 @@
 # Meet Fyre, a simple moderation bot!
-Fyre is a simple moderation bot for [Discord](https://discordapp.com/) intended for moderation, yet it also contains a variety of other features. Fyre is built using the powerful [discord.js library](https://discord.js.org/)
+Fyre is a simple moderation bot for <a href="https://discordapp.com/" target="_blank">Discord</a> intended for moderation, yet it also contains a variety of other features. Fyre is built using the powerful <a href="https://discord.js.org/" target="_blank">discord.js library</a>.
 
 ## T.O.C (Table of Contents):
 - [Setup](#setup)
