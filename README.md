@@ -41,8 +41,9 @@ Fyre is a simple moderation bot for [Discord](https://discordapp.com/) intended 
 
 ## Bot Options:
 These options go in the botconfig.json file.
+
 | Option | Default | Description |
-| --- | --- | --- |
+| ------ | ------- | ----------- |
 | **token** | None | **Required** - The bot's token. You can find this in your application page for this bot. |
 | **ownerid** | None | **Required** - Your discord user id. |
 | status | Moderating servers! | What the bot is displayed as doing. |
