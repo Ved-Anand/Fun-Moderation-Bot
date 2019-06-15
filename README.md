@@ -48,3 +48,5 @@ These options go in the botconfig.json file.
 | **ownerid** | None | **Required** - Your discord user id. |
 | status | Moderating servers! | What the bot is displayed as doing. |
 | prefix | **!** | The bot's command prefix. |
+
+[test](src/plugins/README.md)
