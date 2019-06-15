@@ -1,5 +1,7 @@
 const { inspect } = require("util");
+const logger = require("../utils/logger");
 let sending = false;
+logger.log("Note: If you want to exit the bot, type exit into the console.");
 module.exports = (bot) => {
     let prompt = process.openStdin()
     prompt.addListener("data", res => {
@@ -11,15 +13,15 @@ module.exports = (bot) => {
         } else if (x.startsWith("send")) {
             if (sending == true) {
                 sending = false;
-                console.log("turned off sending mode")
+                logger.log("turned off sending mode")
             } else {
                 sending = true;
-                console.log("turned on sending mode")
+                logger.log("turned on sending mode")
             }
         } else if (x.startsWith("info")) {
-            console.log("Console Administrative Panel Information: \n 1. To send a message from the console, type send , and then the message. \n 2. To exit, type exit. \n 3. To 'clear' the screen, type clear.");
+            logger.info("Console Administrative Panel Information: \n 1. To send a message from the console, type send , and then the message. \n 2. To exit, type exit. \n 3. To 'clear' the screen, type clear.");
         } else if (x.startsWith("exit")) {
-            console.log(". . . Aborting . . .");;
+            logger.info(". . . Aborting . . .");;
             process.exit();
         } else if (x.startsWith("eval")) {
             try {
@@ -27,16 +29,21 @@ module.exports = (bot) => {
                 toEval = toEval.replace("eval", "");
 
                 let evaluated = inspect(eval(toEval, { depth: 0 } ))
-                if (!toEval) return console.log("Error: `Cannot evaluate air!`");
-                console.log(`${evaluated}`);
+                if (!toEval) {
+                    logger.error("Error: `Cannot evaluate air!`");
+                    return;
+                }
+                logger.log(`${evaluated}`);
             } catch(e) {    
-                console.log(`...An error occurred...: \`${e.message}\``);
+                logger.error(`...An error occurred...: \`${e.message}\``);
             }   
         } else if (x.startsWith("clear")) {
             var lines = process.stdout.getWindowSize()[1];
             for (var i = 0; i < lines; i++) {
                 console.log('\r\n');
             }
+        } else {
+            logger.log("Note: You have sending mode turned off! If you want to send a message, turn it on first by typing send in the console!");
         }
     });
 }

@@ -1,4 +1,5 @@
 const { readdirSync, lstatSync, readdir } = require("fs");
+const logger = require("../utils/logger");
 module.exports = (bot) => {
     const load = dirs => {
         const commands = readdirSync(`./src/commands/${dirs}/`).filter(d => d.endsWith('.js'));
@@ -9,7 +10,7 @@ module.exports = (bot) => {
           };
         };
         readdir(`./src/commands/`, (err, files) => {
-          if (err) console.log(err);
+          if (err) logger.log(err);
           var bettername = [];
           files.forEach((f, i) => {
             if (lstatSync(`./src/commands/${f}`)) {

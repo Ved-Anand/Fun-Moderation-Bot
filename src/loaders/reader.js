@@ -1,5 +1,6 @@
 const { accessSync, readFileSync } = require("fs");
 const { parse } = require("json5");
+const logger = require('../../utils/logger');
 let userConfig;
 const configFiles = [
     'botconfig.json',
@@ -16,7 +17,7 @@ for (const configFile of configFiles) {
         break;
     } catch(e) {} 
 }
-if (!foundConfigFile) throw new Error(`Could not find botconfig.json!`);
+if (!foundConfigFile) logger.error("Could not find the botconfig file!");
 try {
     if (foundConfigFile.endsWith(".js")) {
         userConfig = require(`../../${foundConfigFile}`);
@@ -25,7 +26,7 @@ try {
         userConfig = parse(raw);
     }
 } catch (e) {
-    throw new Error(`Error while reading the botconfig file! Error: ${e.message}`);
+    logger.error(e);
 }
 
 const defaultConfig = {
@@ -43,15 +44,15 @@ const required = ['token', 'ownerid'];
 const finalConfig = Object.assign({}, defaultConfig);
 for (const [prop, value] of Object.entries(userConfig)) {
     if (!defaultConfig.hasOwnProperty(prop)) {
-        throw new Error(`${prop} is an invalid option for the botconfig file!`);
+        logger.warn(`${prop} is an invalid option for the botconfig file!`);
     }
     finalConfig[prop] = value;
 }
 for (const needed of required) {
     if (!finalConfig[needed]) {
-        console.error(`${needed} is a required value in the botconfig file, yet it was not found.`);
+        logger.error(`${needed} is a required value in the botconfig file, yet it was not found.`);
         process.exit(1);
     }
 }
-console.log("Got data!");
+logger.log("Got data from botconfig file!");
 module.exports = finalConfig;
