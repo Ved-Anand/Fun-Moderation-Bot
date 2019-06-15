@@ -21,30 +21,30 @@ Fyre is a simple moderation bot for [Discord](https://discordapp.com/) intended 
 ## Commands:
 
 ### Moderating:
-`!addrole <user> <role-name>` Quickly add a role to someone with this nifty command!
-`!ban <user> <reason?>` This command is sure to punish misbehavers.
-`!kick <user> <reason?>` Someone getting on your nerves, yet not enough so that you would ban them? The kick command is right for you!
-`!mute <user> <reason?>` Stop someone from talking if they are spamming/etc.
-`!nick <user>` Change someone's nickname with this command.
-`!purge <amount>` This command will let you quickly delete messages from a channel.
-`!removerole <user> <role-name>` The counter to !addrole, this command will let you quickly remove a role from someone.
-`!unmute <user>` The counter to !mute, this command will unmute someone who is muted, and let them talk again.
+`!addrole <user> <role-name>` Quickly add a role to someone with this nifty command! <br />
+`!ban <user> <reason?>` This command is sure to punish misbehavers. <br />
+`!kick <user> <reason?>` Someone getting on your nerves, yet not enough so that you would ban them? The kick command is right for you! <br />
+`!mute <user> <reason?>` Stop someone from talking if they are spamming/etc. <br />
+`!nick <user>` Change someone's nickname with this command. <br />
+`!purge <amount>` This command will let you quickly delete messages from a channel. <br />
+`!removerole <user> <role-name>` The counter to !addrole, this command will let you quickly remove a role from someone. <br />
+`!unmute <user>` The counter to !mute, this command will unmute someone who is muted, and let them talk again. <br />
 `!warn <user> <reason>` Someone starting to misbehave! Warn them to see if they'll stop. If they don't stop, more drastic action such as the !kick and !ban command may have to be used...
 ### Fun
-`!8ball <question>` Get a somewhat cheesy answer to a question you may have.
-`!cat` Who doesn't like a good cat picture when you're feeling down?
-`!dog` The follow up to `!cat`, dog pictures are great!
+`!8ball <question>` Get a somewhat cheesy answer to a question you may have. <br />
+`!cat` Who doesn't like a good cat picture when you're feeling down? <br />
+`!dog` The follow up to `!cat`, dog pictures are great! <br />
 `!meme` These memes come straight from [r/dankmemes](reddit.com/r/dankmemes/)
 ### Owner
-`!eval <code>` Quickly evaluate some code. If you're editing the code, be sure to not let only the most trusted people use this command, as very dangerous things can happen if you let everyone use this command.
-`!reload <command-name>` If you've just made a change to a command, and are tired of having to constantly restart the npm process each time you want your changes to go through, reload will quickly do it for you.
+`!eval <code>` Quickly evaluate some code. If you're editing the code, be sure to not let only the most trusted people use this command, as very dangerous things can happen if you let everyone use this command. <br />
+`!reload <command-name>` If you've just made a change to a command, and are tired of having to constantly restart the npm process each time you want your changes to go through, reload will quickly do it for you. <br />
 `!shutdown` Shuts down the bot.
 ### Other
-`!botinfo` Get some stats on the bot.
-`!help <command-name?>` Saying just !help will cause the bot to send you a list of the commands, if you type a command name, the bot will you give more detailed information on that command itself.
-`!helpmsg <number>` Every so now and then, you may get an error from the bot, and an error code will be sent into the channel. You can look up these errors with the !helpmsg command, and see what exactly they are.
-`!ping` Get's the bot's ping.
-`!serverinfo` Get some stats on the server you're in.
+`!botinfo` Get some stats on the bot. <br />
+`!help <command-name?>` Saying just !help will cause the bot to send you a list of the commands, if you type a command name, the bot will you give more detailed information on that command itself. <br />
+`!helpmsg <number>` Every so now and then, you may get an error from the bot, and an error code will be sent into the channel. You can look up these errors with the !helpmsg command, and see what exactly they are. <br />
+`!ping` Get's the bot's ping. <br />
+`!serverinfo` Get some stats on the server you're in. <br />
 `!urban <query>` Ask the urban dictionary about something.
 
 ## Bot Options:
