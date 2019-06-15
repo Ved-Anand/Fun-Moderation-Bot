@@ -34,7 +34,7 @@ Fyre is a simple moderation bot for [Discord](https://discordapp.com/) intended 
 `!8ball <question>` Get a somewhat cheesy answer to a question you may have. <br />
 `!cat` Who doesn't like a good cat picture when you're feeling down? <br />
 `!dog` The follow up to `!cat`, dog pictures are great! <br />
-`!meme` These memes come straight from [r/dankmemes](reddit.com/r/dankmemes/)
+`!meme` These memes come straight from [r/dankmemes](https://reddit.com/r/dankmemes/)
 ### Owner
 `!eval <code>` Quickly evaluate some code. If you're editing the code, be sure to not let only the most trusted people use this command, as very dangerous things can happen if you let everyone use this command. <br />
 `!reload <command-name>` If you've just made a change to a command, and are tired of having to constantly restart the npm process each time you want your changes to go through, reload will quickly do it for you. <br />
