@@ -8,6 +8,9 @@ module.exports = async (bot, message) => {
     if (config.privateID) {
         if (message.channel.type == "dm" || message.guild.id != config.privateID) return;
     }
+    if (config.users && config.users.length) {
+        if (!config.users.includes(message.author.id)) return;
+    }
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
     if (cdseconds.has(message.author.id)) {

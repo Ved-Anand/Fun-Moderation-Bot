@@ -55,8 +55,9 @@ These options go in the botconfig.json file.
 | **token** | None | **Required** - The bot's token. You can find this in your application page for this bot. |
 | **ownerid** | None | **Required** - Your discord user id. |
 | status | Moderating servers! | What the bot is displayed as doing. |
-| prefix | **!** | The bot's command prefix. |
+| prefix | ! | The bot's command prefix. |
 | privateID | None | If in config file, it takes a guild id. Doing this will make commands only possible in this guild.
+| users | None | If mentioned, let only the user id's in the array use bot commands
 
 ## Plugins:
 Although this bot will allow you to make plugins, this entire mode still has bugs as it is still being tested. However, if you want to make a plugin with these risks, click [here](src/plugins/README.md).
