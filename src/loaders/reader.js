@@ -31,9 +31,10 @@ try {
 
 const defaultConfig = {
     "token": null,
-    "status": "Moderating servers!",
     "ownerid": null,
+    "status": "Moderating servers!",
     "prefix": "!",
+    "privateID": "",
     "red": "#b70000",
     "orange": "#ff6a00",
     "green": "#00ff26",

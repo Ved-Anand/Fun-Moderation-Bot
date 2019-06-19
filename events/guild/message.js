@@ -4,10 +4,12 @@ module.exports = async (bot, message) => {
     if (message.author.bot && message.author.id != bot.user.id) return;
     let prefix = config.prefix;
     let ownerid = config.ownerid;
-    // if (message.channel.type === "dm" && !message.content.startsWith(`${prefix}help`)) return;
+    if(!message.content.startsWith(prefix)) return;
+    if (config.privateID) {
+        if (message.channel.type == "dm" || message.guild.id != config.privateID) return;
+    }
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
-    if(!message.content.startsWith(prefix)) return;
     if (cdseconds.has(message.author.id)) {
         return message.channel.send("Chill bruh");
     } else if (message.author.id != ownerid) { //bypass the command cooldown if you're the bot owner.
