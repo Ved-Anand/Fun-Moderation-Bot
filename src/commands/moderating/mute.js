@@ -1,7 +1,6 @@
-const errors = require("../../../utils/errors.js"); // get errors file
-const usage = require("../../../utils/usage.js");
-//Point of command: Mute someone if they're spamming or being annoying, etc.
-//Command Syntax: $mute <user> <reason> - Optional
+const errors = require("../../../utils/errors.js"); //better errors
+const usage = require("../../../utils/usage.js"); //better help-messages
+const { prefix } = require("../../loaders/reader") //get prefix from botconfig
 
 module.exports = {
     config: {
@@ -15,20 +14,22 @@ module.exports = {
         if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
-        //if command runner not have required perms return errors noPerms()
-        //if bot not have required perms return errors function lack()
-        let cmd = message.content.split(" ")[0];
-        if(args[0] == "help") return usage.reasonHelp(cmd, message.channel);
+
+        let cmd = message.content.split(" ")[0].replace(prefix, ''); //used because command aliases
+        if(args[0] == "help") return message.channel.send(usage.fullHelp(bot, cmd));
 
         let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
         if(!mutee) return errors.cantfindUser(message.channel);
-        //if specified user was not found return with erros function cantfinduser()
 
-        if(mutee.id == bot.user.id) return errors.botuser(message, "mute"); //if specified user bot, return botuser()
+        if(mutee.id == bot.user.id) return errors.botuser(message, "mute");
+
         if (mutee.hasPermission("MANAGE_ROLES")) return errors.equalPerms(message, mutee, "MANAGE_ROLES");
+
         let reason = args.slice(1).join(" "); 
-        if(!reason) reason = "No reason was given!"; //default reason = No reason was given
+        if(!reason) reason = "No reason was given!";
+
         let muterole = message.guild.roles.find(r => r.name === "muted") //look to see if muted role already exists
+
         if(!muterole) { //if not
             try{
                 muterole = await message.guild.createRole({
@@ -43,7 +44,7 @@ module.exports = {
                         SEND_TTS_MESSAGES: false,
                         ATTACH_FILES: false,
                         SPEAK: false
-                    });  //will overwrite permissiosn for each channel to make it so that the user is muted
+                    });  //will overwrite permissiosn for each channel to make it so that the user can't speak
                 });
             } catch(e) {
                 console.log(e.stack); //if err log err

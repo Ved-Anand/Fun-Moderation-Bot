@@ -10,7 +10,7 @@ module.exports = {
         message.channel.send("Pinging...").then(m => {
             let ping = m.createdTimestamp - message.createdTimestamp;
             let choices = ["Is this really my ping", "Is it okay? I cant look", "I hope it isnt bad"];
-            let response = choices[Math.floor(Math.random() * choices.length)];
+            let response = choices[Math.floor(Math.random() * choices.length)]; ///get random response
             m.edit(`${response}: Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ping)}\``);
         });
     }

@@ -1,6 +1,4 @@
-const { RichEmbed } = require("discord.js"); //get discord repo
-//Point of command: Give some facts about server
-//Command Syntax: $serverinfo
+const { RichEmbed } = require("discord.js");
 
 module.exports = {
   config: {
@@ -12,10 +10,12 @@ module.exports = {
   },
   run: async (bot, message, args) => {
     if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
-    let sicon = message.guild.iconURL;
-    let serverembed = new RichEmbed() //create kewl embed
+
+    let sicon = message.guild.iconURL; //server image
+
+    let serverembed = new RichEmbed()
       .setDescription("Server Information")
-      .setColor("#"+((1<<24)*Math.random()|0).toString(16))
+      .setColor("#"+((1<<24)*Math.random()|0).toString(16)) //hex color randomizer
       .setThumbnail(sicon)
       .addField("Server Name", message.guild.name)
       .addField("Created On", message.guild.createdAt)

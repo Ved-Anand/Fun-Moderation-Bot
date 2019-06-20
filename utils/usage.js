@@ -1,5 +1,6 @@
 const { RichEmbed } = require("discord.js");
-const config = require("../src/loaders/reader");
+const config = require("../src/loaders/reader"); //get data from botconfig file
+
 module.exports.fullHelp = (bot, command) => {
     let inf;
     if (bot.commands.has(command) || bot.aliases.has(command)) {

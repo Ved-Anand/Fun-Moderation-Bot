@@ -1,6 +1,8 @@
 let array = new Array();
+
 array[3148] = "Missing Permissions. \n Reccomended solution: Go to server settings, roles, and make the bot role the highest one. If this does not work, make sure the bot has all the permissions."
 array[5621] = "That helpmsg is not recognized."
+
 module.exports.getError = (err) => {
     let id;
     switch (err) {

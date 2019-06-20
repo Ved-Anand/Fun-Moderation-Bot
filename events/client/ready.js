@@ -1,20 +1,16 @@
-const config = require("../../src/loaders/reader");
+const config = require("../../src/loaders/reader"); 
+//get the data set in the botconfig file
 const logger = require("../../utils/logger");
+//if you have not already seen logger.js, this is basically the same as console logging, yet neater.
+const configchecker = require("../../utils/configchecker");
+//used to check certain elements of the data set in the botconfig file
+
 module.exports = async bot => {
-    bot.user.setActivity(config.status, {type: "STREAMING"});
+    bot.user.setActivity(config.status, {type: "STREAMING"}); //set status
     logger.info("Bot is online!");
-    if (config.privateID != "") {
-        let testGuild = bot.guilds.get(config.privateID);
-        if (!testGuild) return logger.error('That guild was not found!');
-    }
-    if (config.users && config.users.length) {
-        let testUser;
-        let user;
-        for (var i in config.users) {
-            user = config.users[i];
-            testUser = bot.users.get(user);
-            if (!testUser) return logger.error(`Could not find the user ${user}, did you make sure to enter their id, and put it into the users array in the config file?`);
-        }
-    }
-    require("../../src/loaders/pluginloader")(bot, config);
+
+    configchecker.checkPrivate(bot, config); 
+    configchecker.checkWhitelist(bot, config);
+    //check that if whitelist/private is toggled, correct data has been filled out in the botconfig file
+    require("../../src/loaders/pluginloader")(bot, config); //run pluginloader.js
 }

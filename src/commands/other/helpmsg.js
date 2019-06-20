@@ -1,4 +1,5 @@
 const { findError } = require("../../../utils/othererrors.js");
+
 module.exports = {
     config: {
         name: "helpmsg",
@@ -10,6 +11,7 @@ module.exports = {
     run: async (bot, message, args) => {
         let id = args[0];
         if (!id) return message.channel.send("Please supply an error id.");
+        
         let fix = findError(id);
         message.channel.send(fix);
     }

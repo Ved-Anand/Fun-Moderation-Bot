@@ -1,7 +1,6 @@
-const errors = require("../../../utils/errors.js") //get errors file
-const usage = require("../../../utils/usage.js"); //get usage file
-//Point of Command: Unmute someone who's muted
-//Command Syntax: $unmute <user> (reason) - optional
+const errors = require("../../../utils/errors.js") //better errors
+const usage = require("../../../utils/usage.js"); //better help-messages
+const { prefix } = require("../../loaders/reader") //get prefix from botconfig
 
 module.exports = {
     config: {
@@ -14,14 +13,12 @@ module.exports = {
         if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
         if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
         if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
-        //if command author not have required perms return noPerms()
-        //if bot not have required perms return lack()
-        let cmd = message.content.split(" ")[0];
-        if(args[0] == "help") return usage.noReasonHelp(cmd, message.channel);
+
+        let cmd = message.content.split(" ")[0].replace(prefix, ''); //because command aliases
+        if(args[0] == "help") return message.channel.send(usage.fullHelp(bot, cmd));
 
         let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
         if(!mutee) return errors.cantfindUser(message.channel);
-        //if user not found return cantfinduser()
 
         let muterole = message.guild.roles.find(r => r.name === "muted")
         if(!muterole) return message.channel.send("There is no mute role to remove!") //if no role
