@@ -12,7 +12,6 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         var targetWord = args == "" ? urban.random() : urban(args);
-        if (message.author.id == 460609573300994048) return message.channel.send("Lol no");
         let cmd = message.content.split(" ")[0].replace(prefix, '');
         if (args[0].toLowerCase() == "help") return message.channel.send(usage.fullHelp(bot, cmd));
 		targetWord.first(function(json) {
