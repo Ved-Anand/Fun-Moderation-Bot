@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const config = require("../src/loaders/reader"); //get data from botconfig file
 
-module.exports.fullHelp = (bot, command) => {
+function fullHelp(bot, command) {
     let inf;
     if (bot.commands.has(command) || bot.aliases.has(command)) {
         if (bot.commands.has(command)) {
@@ -18,4 +18,7 @@ module.exports.fullHelp = (bot, command) => {
     } else {
         return "That command was not found, do $help to get a list of the commands";
     }
+}
+module.exports = {
+    fullHelp
 }
