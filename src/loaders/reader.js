@@ -48,7 +48,7 @@ const defaultConfig = {
     "green": "#00ff26",
     "purple": "#d604cf",
     "users": [],
-    "plugins": []
+    "notplugins": [],
 };
 
 const required = ['token', 'ownerid'];
