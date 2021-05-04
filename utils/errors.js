@@ -51,11 +51,20 @@ function lack(channel, perm) {
     channel.send(embed).then(m => m.delete(3000));
 }
 
+function notBanned(channel, id) {
+    let embed = new Discord.RichEmbed()
+        .setTitle("Error")
+        .setDescription(`User with the ID ${id} isn't banned.`)
+        .setColor(config.red);
+    channel.send(embed).then(m => m.delete(3000));
+}
+
 module.exports = {
     noPerms,
     equalPerms,
     botuser,
     cantfindUser,
     noRole,
-    lack
+    lack,
+    notBanned
 }
