@@ -21,27 +21,30 @@ module.exports = {
         let cmd = message.content.split(" ")[0].replace(prefix, ''); //used because command aliases
         if (args[0] == "help") return message.channel.send(usage.fullHelp(bot, cmd));
 
-        let bUser = message.mentions.users.first().id || args[0]
-        if(!bUser) return errors.cantfindUser(message.channel);
+        let ubUser = message.mentions.users.first()
+        if(!ubUser) return errors.cantfindUser(message.channel);
 
-        if(bUser.id === bot.user.id) return errors.botuser(message, "ban"); //if bot return with function botUser()
+        if(ubUser.id === bot.user.id) return errors.botuser(message, "unban"); //if bot return with function botUser()
 
-        let bReason = args.join(" ").slice(22);
-        if(!bReason) bReason = 'No reason given';
+        const bans = await message.guild.fetchBans();
+        if(!bans.get(bUser.id)) return errors.notBanned(message.channel, ubUser.id);
 
-        if(bUser.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, bUser, "BAN_MEMBERS");
+        let ubReason = args.join(" ").slice(22);
+        if(!ubReason) ubReason = 'No reason given';
 
-        let banEmbed = new RichEmbed() //create rich embed
+        if(ubUser.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, ubUser, "BAN_MEMBERS");
+
+        let unbanEmbed = new RichEmbed() //create rich embed
             .setDescription("~Unban~")
             .setColor("#bc0000")
-            .addField("Unbanned user", `${bUser} with ID ${bUser.id}`)
+            .addField("Unbanned user", `${ubUser} with ID ${ubUser.id}`)
             .addField("Unbanned By", `<@${message.author.id}> with ID ${message.author.id}`)
             .addField("Unbanned In", message.channel)
             .addField("Time", message.createdAt)
-            .addField("Reason", bReason);
+            .addField("Reason", ubReason);
         try {
-            bUser.ban(bReason);
-            message.channel.send(banEmbed);
+            message.guild.members.unban(ubUser.id, ubReason);
+            message.channel.send(unbanEmbed);
         } catch(e) {
             let id = second.getError(e.message);
             message.channel.send(`Unfortunately, an error occurred. Error ID: ${id}`);
