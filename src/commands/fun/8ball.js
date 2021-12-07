@@ -16,7 +16,7 @@ module.exports = {
         if(!args[2]) return message.channel.send(`Please ask a full question. \n Command Syntax: ${cmd} (question)`);
         //questions should be at least 3 words long
 
-        let replies = ["Yes.", "No.", "I don't know.", "Ask again later!", "I refuse to answer this!", "no u boi", "tHaTs wHaT sHe SaId", `${message.author.username}, you're a bot`, "google it"];
+        let replies = ["Yes.", "No.", "I don't know.", "Ask again later!", "I refuse to answer this!", "I find this question offensive", "I could tell you the answer but I dont really feel like it.", `${message.author.username}, you're a bot`, "google it"];
         let result = Math.floor((Math.random() * replies.length)); 
         //get random number between 0 and the length of the array
 
