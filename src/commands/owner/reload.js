@@ -1,4 +1,5 @@
-const { ownerid } = require("../../loaders/reader"); //get ownerid from botconfig file
+const { ownerid } = require("../../loaders/reader"); 
+const { readdirSync, readdir, lstatSync } = require("fs");
 
 module.exports = {
     config: {
@@ -6,9 +7,10 @@ module.exports = {
         aliases: ["creload", "refresh", "fix"]
     },
     run: async (bot, message, args) => {
-        if (message.author.id != ownerid) return; //only owner can use
+        if (message.author.id != ownerid) return;
 
         if(!args[0]) return message.channel.send("Please provide a command to reload!");
+
         let commandName = args[0].toLowerCase();
 
         let directory;
@@ -33,7 +35,7 @@ module.exports = {
                 }
             }
         }
-        /* the try and catch above will through testing get the directory of the command specified */
+        
         bot.commands.delete(commandName);
         const pull = require(`../${directory}/${commandName}.js`);
         bot.commands.set(commandName, pull);

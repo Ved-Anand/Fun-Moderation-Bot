@@ -1,4 +1,4 @@
-const { ownerid } = require("../../loaders/reader"); //get ownerid from botconfig file
+const { ownerid } = require("../../loaders/reader");
 
 module.exports = {
     config: {
@@ -6,7 +6,7 @@ module.exports = {
         aliases: ["stop", "exit", "rm-rf"]
     },
     run: async (bot, message, args) => {
-        if (message.author.id != ownerid) return; //only owner can use
+        if (message.author.id != ownerid) return; 
         
         try {
             await message.channel.send(". . . Bot is shutting down . . .");

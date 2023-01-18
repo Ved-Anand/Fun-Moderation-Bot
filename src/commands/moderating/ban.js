@@ -1,50 +1,50 @@
-const { RichEmbed } = require("discord.js");
-const errors = require("../../../utils/errors"); //better errors
-const usage = require("../../../utils/usage"); //better helpmessages 
-const second = require("../../../utils/othererrors.js"); //better errors
-const { prefix } = require("../../loaders/reader") //get prefix from botconfig
+const { MessageEmbed } = require("discord.js");
+const errors = require("../../../utils/errors");
+const usage = require("../../../utils/usage"); 
 
 module.exports = {
     config: {
         name: "ban",
         aliases: ["banish", "remove"],
-        usage: "$ban <user> <reason>",
+        usage: "ban <user> <reason>",
         description: "Ban someone permanently from the server if they really misbehave.",
         permissions: "ban members"
     },
     run: async (bot, message, args) => {
-        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
+        if (message.channel.type == "dm") return;
 
-        if(!message.member.hasPermission("BAN_MEMBERS") || !message.guild.owner) return errors.noPerms(message, "BAN_MEMBERS");
-        if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "BAN_MEMBERS");
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "ban")] });
 
-        let cmd = message.content.split(" ")[0].replace(prefix, ''); //used because command aliases
-        if (args[0] == "help") return message.channel.send(usage.fullHelp(bot, cmd));
+        if(!message.member.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "Ban Members");
+        if(!message.guild.me.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "Ban Members");
+        
+        let bUser;
+        try {
+            bUser = message.mentions.members.first() || message.guild.users.cache.get(args[0]);
+        } catch (e) {return message.channel.send("Couldn't find user.");}
 
-        let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         if(!bUser) return errors.cantfindUser(message.channel);
 
-        if(bUser.id === bot.user.id) return errors.botuser(message, "ban"); //if bot return with function botUser()
+        if(bUser.id === bot.user.id) return errors.botuser(message, "ban");
 
         let bReason = args.join(" ").slice(22);
-        if(!bReason) bReason = 'No reason given';
+        if(!bReason) bReason = "No reason given";
 
-        if(bUser.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, bUser, "BAN_MEMBERS");
+        if (bUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, bUser, "Ban Members");
 
-        let banEmbed = new RichEmbed() //create rich embed
-            .setDescription("~Ban~")
-            .setColor("#bc0000")
-            .addField("Banned user", `${bUser} with ID ${bUser.id}`)
-            .addField("Banned By", `<@${message.author.id}> with ID ${message.author.id}`)
-            .addField("Banned In", message.channel)
-            .addField("Time", message.createdAt)
-            .addField("Reason", bReason);
-        try {
-            bUser.ban(bReason);
-            message.channel.send(banEmbed);
-        } catch(e) {
-            let id = second.getError(e.message);
-            message.channel.send(`Unfortunately, an error occurred. Error ID: ${id}`);
-        }
+        let banEmbed = new MessageEmbed() 
+            .setDescription("**Ban**")
+            .setColor("#"+((1<<24)*Math.random()|0).toString(16))
+            .addField("User Banned:", `${bUser}`)
+            .addField("Banned By:", `<@${message.author.id}>`)
+            .addField("Banned At:", ''+message.createdAt)
+            .addField("Reason:", ''+bReason);
+
+        await message.guild.bans.create(bUser, {
+            reason: bReason
+        }).then(() => {
+            return message.channel.send({embeds: [banEmbed] });
+        })
+
     }
 }

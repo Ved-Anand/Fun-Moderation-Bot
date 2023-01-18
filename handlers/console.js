@@ -15,8 +15,9 @@ module.exports = (bot) => {
 
         if (sending == true && !x.startsWith("send")) { 
             //if sending set to true, and user did not type send as they might be trying to turn off send mode run this
-            bot.channels.get("576452367285878786").send(x); 
-            //if you want to freak out some of your friends, replace the number in quotations above with your channel id.
+            if (x === '') return logger.log("cannot send air!");
+            bot.channels.cache.get(/* Put a channel id here: */"").send(x); 
+            //if you want to type out a message using the bot in some channel for whatever purpose and the bot is in that server, replace the above text with channel ID>
         } else if (x.startsWith("send")) {
             if (sending == true) {
                 sending = false;
@@ -26,7 +27,7 @@ module.exports = (bot) => {
                 logger.log("turned on sending mode")
             }
 
-        } else if (x.startsWith("info")) {
+        } else if (x.startsWith("info") || x.startsWith("help")) {
             logger.info("Console Administrative Panel Information: \n 1. To send a message from the console, type send , and then the message. \n 2. To exit, type exit. \n 3. To 'clear' the screen, type clear.");
         } else if (x.startsWith("exit")) {
             logger.info(". . . Aborting . . .");;
@@ -53,8 +54,6 @@ module.exports = (bot) => {
             for (var i = 0; i < lines; i++) {
                 console.log('\r\n');
             }
-        } else {
-            logger.log("Note: You have sending mode turned off! If you want to send a message, turn it on first by typing send in the console!");
-        }
+        } else {}
     });
 }

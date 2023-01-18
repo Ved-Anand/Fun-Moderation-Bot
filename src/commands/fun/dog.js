@@ -15,11 +15,11 @@ module.exports = {
         .get(`https://dog.ceo/api/breeds/image/random`);
         if(!{body}) return message.channel.send("Unfortunately, an error occurred - try running the command again.");
 
-        await message.channel.send({ //await sending message
+        await message.channel.send({ 
             files: [{
                 attachment: body.message,
                 name: "dog.png"
             }]
-        }).then(() => msg.delete()); //after message sent delete ...generating... message
+        }).then(() => msg.delete());
     }
 }

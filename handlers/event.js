@@ -14,5 +14,5 @@ module.exports = (bot) => {
     };
   };
   
-  ["client", "guild"].forEach(x => load(x)); //these are the two names of the directories in ./events
+  ["client", "guild"].forEach(x => load(x)); //these are the two names of the directories in ./events to be ran
 };

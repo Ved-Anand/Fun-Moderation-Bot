@@ -1,4 +1,5 @@
 let array = new Array();
+//this entire file will be deleted when I decide to (there is no point to having it.)
 
 array[3148] = "Missing Permissions. \n Reccomended solution: Go to server settings, roles, and make the bot role the highest one. If this does not work, make sure the bot has all the permissions."
 array[5621] = "That helpmsg is not recognized."

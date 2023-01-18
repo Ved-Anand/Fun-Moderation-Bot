@@ -1,4 +1,4 @@
-const logger = require("./logger"); //better console logging
+const logger = require("./logger"); 
 
 function checkPrivate(bot, config) {
     if (config.private) {

@@ -1,34 +1,49 @@
-const errors = require("../../../utils/errors.js"); //better errors
+const errors = require("../../../utils/errors.js");
+const usage = require("../../../utils/usage"); 
 
 module.exports = {
     config: {
         name: "removerole",
         aliases: ["roleremove"],
-        usage: "$removerole <user>",
-        description: "The counter to $addrole, remove a role from someone",
-        permissions: "manage roles"
+        usage: "removerole <user> <role>",
+        description: "Removes a role from someone",
+        permissions: "Manage Roles"
     },
     run: async (bot, message, args) => {
-        if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
-        if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return errors.noPerms(message, "MANAGE_ROLES");
-        if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
+        if (message.channel.type == "dm") return;
 
-        let cmd = message.content.split(" ")[0]; //because command aliases
-        if(args[0] == "help") return message.channel.send(`Command Syntax: ${cmd} (user) <role-name>`);
+        if(!message.member.permissions.has(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.noPerms(message, "MANAGE_ROLES");
+        if(!message.guild.me.permissions.has(["MANAGE_ROLES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_ROLES");
 
-        let rMember = message.mentions.members.first() || message.guild.members.find(m => m.user.tag === args[0]) || message.guild.members.get(args[0]);
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "removerole")] });
+
+        let rMember;
+        try {
+            rMember = message.mentions.members.first() || message.guild.users.cache.get(args[0]);
+        } catch (e) {return message.channel.send("Couldn't find user.");}
+
         if(!rMember) return errors.cantfindUser(message.channel);
 
-        if (rMember.id === bot.user.id) return errors.botuser(message, "remove a role from");
+        if (rMember.id === bot.user.id) return errors.botuser(message, "add a role to");
 
-        let role = message.guild.roles.find(r => r.name == args[1]) || message.guild.roles.find(r => r.id == args[1]) || message.mentions.roles.first();
+        if (rMember.permissions.has("ADMINISTRATOR")) return errors.equalPerms(message, rMember, "Administrator");
+
+        let role;
+        try {
+            role = message.guild.roles.cache.get(args[1].substring(3).replace(">", ""));
+        } catch (e) {return message.channel.send("Couldn't find role.");}
         if(!role) return errors.noRole(message.channel);
 
-        if(!rMember.roles.has(role.id)) { //if user does not have specified role
-            return message.channel.send(`**${rMember.displayName} does not have that role to begin with!**`);
+        if(rMember.roles.cache.some(i => i.name === role.name)) {
+            try {
+                rMember.roles.remove(role)
+                return message.channel.send(`:white_check_mark: Removed ${role.name} from ${rMember.displayName}.`); 
+            } catch(err) {
+                console.log(err);
+                return message.channel.send(`:x: Unfortunately an error occurred.`);
+            }
         } else {
-            await rMember.removeRole(role.id); //remove role
-            message.channel.send(`**The role ${role.name} has been successfully removed from ${rMember.displayName}.**`);
+            return message.channel.send(`:x: User ${rMember.displayName} doesn't have that role.`)
         }
     }
 }

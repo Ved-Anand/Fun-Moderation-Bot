@@ -10,13 +10,13 @@ module.exports = {
     run: async (bot, message, args) => {
         let msg = await message.channel.send(". . . Generating . . .");
 
-        get("https://aws.random.cat/meow").then(async res => { //get cat image, res = pic
-            await message.channel.send({ //send message
+        get("https://aws.random.cat/meow").then(async res => { 
+            await message.channel.send({ 
                 files: [{
                     attachment: res.body.file,
                     name: "cat.png"
                 }]
-            }).then(msg.delete()); //after message sent delete ...generating... message
+            }).then(msg.delete());
         });
     }
 }

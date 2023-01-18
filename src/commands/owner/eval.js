@@ -1,5 +1,5 @@
 const { inspect } = require("util");
-const { ownerid } = require("../../loaders/reader"); //get ownerid from botconfig file
+const { ownerid } = require("../../loaders/reader");
 
 module.exports = {
     config: {
@@ -7,7 +7,7 @@ module.exports = {
         aliases: ["find", "calc", "calculate"]
     },
     run: async (bot, message, args) => {
-        if (message.author.id != ownerid) return; //only owner can use
+        if (message.author.id != ownerid) return;
 
         let toEval = args.join(" ");
 

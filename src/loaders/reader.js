@@ -1,9 +1,9 @@
 const { accessSync, readFileSync } = require("fs");
 const { parse } = require("json5");
-const logger = require('../../utils/logger'); //better console logging
+const logger = require('../../utils/logger'); 
 
 let userConfig;
-const configFiles = [ //possible config files found
+const configFiles = [ //possible config files 
     'botconfig.json',
     'botconfig.json5',
     'botconfig.json.json',
@@ -12,24 +12,24 @@ const configFiles = [ //possible config files found
 ];
 
 let foundConfigFile;
-for (const configFile of configFiles) { //for each of the possible config files
+for (const configFile of configFiles) { 
     try {
-        accessSync(__dirname + '/../../' + configFile); //see if specific config file exists
-        foundConfigFile = configFile; //if it does exist, set foundConfigFile to it
-        break; //stop running the loop
+        accessSync(__dirname + '/../../' + configFile); 
+        foundConfigFile = configFile; 
+        break; 
     } catch(e) {} 
-    //if accessSync fails cause config file does not exist, do nothing and simply go through next element in loop
+
 }
 
-if (!foundConfigFile) logger.error("Could not find the botconfig file!"); //if still no foundConfigFile
+if (!foundConfigFile) logger.error("Could not find the botconfig file!"); 
 
 try {
-    if (foundConfigFile.endsWith(".js")) { //if javascript file, userConfig set to simply requiring it
+    if (foundConfigFile.endsWith(".js")) { //javascript file is sort of the easiest since you can just require it.
         userConfig = require(`../../${foundConfigFile}`);
     } else {
         const raw = readFileSync(__dirname + '/../../' + foundConfigFile); 
         userConfig = parse(raw);
-        //if not javascript file, userConfig set to parsed version of config file
+
     }
 } catch (e) {
     logger.error(e);
@@ -41,7 +41,7 @@ const defaultConfig = {
     "private": false,
     "whitelist": false,
     "status": "Moderating servers!",
-    "prefix": "!",
+    "prefix": "$",
     "privateID": "",
     "red": "#b70000",
     "orange": "#ff6a00",
@@ -52,19 +52,19 @@ const defaultConfig = {
 };
 
 const required = ['token', 'ownerid'];
-const finalConfig = Object.assign({}, defaultConfig); //finalConfig has defaultConfig's properties
+const finalConfig = Object.assign({}, defaultConfig); 
 
 for (const [prop, value] of Object.entries(userConfig)) { 
-    //prop = string in userConfig, e.g token, ownerid, etc.
+  
     if (!defaultConfig.hasOwnProperty(prop)) { 
-        //if the default config does not have prop, it is unknown value, so end with an error
+
         logger.warn(`${prop} is an invalid option for the botconfig file!`);
     }
-    finalConfig[prop] = value; //if not, reset the finalConfig[prop] value to whatever was put inside the config file
+    finalConfig[prop] = value; 
 }
 
-for (const needed of required) { //for each of the items in the required array, (token, ownerid)
-    if (!finalConfig[needed]) { //if finalConfig does not have them, meaning they were not specified, return an error.
+for (const needed of required) { 
+    if (!finalConfig[needed]) { 
         logger.error(`${needed} is a required value in the botconfig file, yet it was not found.`);
         process.exit(1);
     }

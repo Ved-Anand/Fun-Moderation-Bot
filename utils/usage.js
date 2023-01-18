@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const config = require("../src/loaders/reader"); //get data from botconfig file
 
 function fullHelp(bot, command) {
@@ -9,14 +9,18 @@ function fullHelp(bot, command) {
         } else {
             inf = bot.commands.get(bot.aliases.get(command));
         }
-        var SHembed = new RichEmbed()
+
+        var a = inf.config.aliases;
+        if (inf.config.aliases == [] || inf.config.aliases == undefined) a = "No Aliases"
+
+        var SHembed = new MessageEmbed()
             .setColor(config.orange)
-            .setAuthor(`Help:`)
-            .setThumbnail(bot.user.displayAvatarURL)
-            .setDescription(`\n\n**Command:** ${inf.config.name}\n**Description:** ${inf.config.description || "No Description"}\n**Usage:** ${inf.config.usage || "No Usage"}\n**Required permissions:** ${inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${inf.config.aliases || "No aliases"}`);
+            .setAuthor({name: "Help:"})
+            .setThumbnail(bot.user.displayAvatarURL())
+            .setDescription(`\n\n**Command:** ${'' + inf.config.name}\n**Description:** ${'' + inf.config.description || "No Description"}\n**Usage:** ${'' + inf.config.usage || "No Usage"}\n**Required permissions:** ${'' + inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${''+ a}`);
         return SHembed;
     } else {
-        return "That command was not found, do $help to get a list of the commands";
+        return false;
     }
 }
 module.exports = {

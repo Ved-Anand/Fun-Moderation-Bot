@@ -1,6 +1,6 @@
-const { RichEmbed } = require("discord.js");
-const { prefix, purple } = require("../../loaders/reader"); //get prefix/purple elements from finalConfig in reader.js
-const gethelp = require("../../../utils/usage.js"); //better help-messages
+const { MessageEmbed } = require("discord.js");
+const { prefix, purple } = require("../../loaders/reader");
+const gethelp = require("../../../utils/usage.js");
 
 module.exports = {
     config: {
@@ -14,16 +14,20 @@ module.exports = {
         if(args[0]) {
             let command = args[0];
             let embed = gethelp.fullHelp(bot, command);
-            return message.channel.send(embed);
+            if (!embed) return message.channel.send("That command was not found.");
+            return message.channel.send({ embeds: [embed] });
         } else {
-            let Sembed = new RichEmbed()
+            let Sembed = new MessageEmbed()
                 .setColor(purple)
-                .setAuthor(`Help:`)
-                .setThumbnail(bot.user.displayAvatarURL) //bot avatar
+                .setAuthor({
+                    name: "Help:"
+                })
+                .setThumbnail(bot.user.avatarURL()) //bot avatar
                 .setTimestamp()
                 .setDescription(`The bot prefix is ${prefix} \n To get more info on a specific command, type $help command name \n Note: Most of these commands will only work in a server. \n These are the bot's commands: `)
-                .addField(`Commands:`, "``8ball`` ``cat`` ``dog`` ``meme`` ``addrole`` ``ban`` ``kick`` ``mute`` ``purge`` ``removerole`` ``unmute`` ``warn`` ``botinfo`` ``helpmsg`` ``help`` ``ping`` ``serverinfo`` ``urban``");
-            message.author.send(Sembed);
+                //Automate below commands later to just iterate through most folders
+                .addField(`Commands:`, "``8ball`` ``dog`` ``addrole`` ``ban`` ``kick`` ``mute`` ``purge`` ``removerole`` ``unmute`` ``warn`` ``botinfo`` ``helpmsg`` ``help`` ``ping`` ``serverinfo`` ``urban``");
+            message.channel.send({ embeds: [Sembed] });
         }
     } 
 }

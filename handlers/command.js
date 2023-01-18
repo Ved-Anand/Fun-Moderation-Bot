@@ -1,5 +1,5 @@
 const { readdirSync, lstatSync, readdir } = require("fs");
-const logger = require("../utils/logger"); //logger = better console.log
+const logger = require("../utils/logger"); 
 
 module.exports = (bot) => {
   const load = dirs => {

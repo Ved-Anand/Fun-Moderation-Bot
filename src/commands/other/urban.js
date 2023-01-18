@@ -1,6 +1,5 @@
 const urban = require("urban");
-const usage = require("../../../utils/usage.js"); //betters help-messages
-const { prefix } = require("../../loaders/reader") //get prefix from botconfig
+const usage = require("../../../utils/usage.js"); 
 
 module.exports = {
     config: {
@@ -12,8 +11,9 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         var targetWord = args == "" ? urban.random() : urban(args);
-        let cmd = message.content.split(" ")[0].replace(prefix, '');
-        if (args[0].toLowerCase() == "help") return message.channel.send(usage.fullHelp(bot, cmd));
+
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "urban")] });
+
 		targetWord.first(function(json) {
 			if (json) {
 				var tosend = "Urban Dictionary: **" +json.word + "**\n\n" + json.definition;
