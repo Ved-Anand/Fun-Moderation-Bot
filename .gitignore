@@ -1,5 +1,7 @@
 botconfig.json
+config.json
+botconfig.js
+config.js
+
 node_modules/
 archived
-src/commands/other/erdogan.js
-erdogan.jpg
