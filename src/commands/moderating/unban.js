@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require("discord.js");
 const errors = require("../../../utils/errors"); 
 const usage = require("../../../utils/usage"); 
 
@@ -14,8 +15,8 @@ module.exports = {
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "unban")] });
 
-        if(!message.member.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "Ban Members");
-        if(!message.guild.me.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "Ban Members");
+        if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Ban Members");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Ban Members");
         
         let ubUser = args[0].replace("<", "").replace("@", "").replace(">", "");
        

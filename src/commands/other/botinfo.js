@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = { 
   config: {
     name: "botinfo",
     aliases: ["binfo"],
-    usage: "$botinfo",
+    usage: "botinfo",
     description: "Get some stats on the bot",
     permissions: "none"
   },
@@ -12,7 +12,7 @@ module.exports = {
 
     let d = new Date(bot.guilds.cache.get(message.guild.id).joinedTimestamp);
 
-    const botembed = new MessageEmbed()
+    const botembed = new EmbedBuilder()
         .setTitle("Information")
         .setColor("#000000")
         .setThumbnail(bot.user.avatarURL())

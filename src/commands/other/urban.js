@@ -5,7 +5,7 @@ module.exports = {
     config: {
         name: "urban",
         aliases: ["define", "see", "lookup"],
-        usage: "$urban <thing to lookup>",
+        usage: "urban <thing to lookup>",
         description: "Look something up on the urban dictionary",
         permissions: "none"
     },

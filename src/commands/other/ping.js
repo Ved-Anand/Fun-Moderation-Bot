@@ -2,7 +2,7 @@ module.exports = {
     config: {
         name: "ping",
         aliases: ["latency"],
-        usage: "$ping",
+        usage: "ping",
         description: "Get the bot's ping!",
         permissions: "none"
     },

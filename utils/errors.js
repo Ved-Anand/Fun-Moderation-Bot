@@ -1,11 +1,13 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 let config = require("../src/loaders/reader"); 
 
 function noPerms(message, perm) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("No Perms")
         .setColor(config.red)
-        .addField("Insufficient permission:", perm);
+        .addFields({
+            name: "Insufficient permission:", value: perm, inline: true
+        });
     message.channel.send({embeds: [embed] })
         .then(m => {
             setTimeout(() => m.delete(), 4000)
@@ -13,10 +15,12 @@ function noPerms(message, perm) {
 }
 
 function equalPerms(message, user, perms) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setColor(config.red)
         .setTitle("Error")
-        .addField(`${user.user.username} has equal or higher perms to you through the permission`, perms);
+        .addFields({
+            name: ' ', value: `${user.user.username} has equal or higher perms to you through the permission ${perms}`, inline: true
+        });
     message.channel.send({embeds: [embed] })
         .then(m => {
             setTimeout(() => m.delete(), 4000)
@@ -24,7 +28,7 @@ function equalPerms(message, user, perms) {
 }
 
 function botuser(message, command) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("Error")
         .setDescription(`You cannot ${command} me!`)
         .setColor(config.red);
@@ -35,7 +39,7 @@ function botuser(message, command) {
 } 
 
 function cantfindUser(channel) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("Error")
         .setDescription("That user was not found!")
         .setColor(config.red);
@@ -46,7 +50,7 @@ function cantfindUser(channel) {
 }
 
 function noRole(channel) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("Error")
         .setDescription("That role was not found!")
         .setColor(config.red);
@@ -57,10 +61,12 @@ function noRole(channel) {
 }
 
 function lack(channel, perm) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("I don't have enough permissions.")
         .setColor(config.red)
-        .addField("I do not have the permission", perm);
+        .addFields({
+            name: ' ', value: "I do not have the permission" + perm, inline: true
+        });
     channel.send({embeds: [embed] })
         .then(m => {
             setTimeout(() => m.delete(), 4000)
@@ -68,7 +74,7 @@ function lack(channel, perm) {
 }
 
 function notBanned(channel, id) {
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
         .setTitle("Error")
         .setDescription(`User with the ID ${id} isn't banned.`)
         .setColor(config.red);

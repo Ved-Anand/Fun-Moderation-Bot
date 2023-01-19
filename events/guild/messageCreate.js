@@ -1,10 +1,25 @@
 const config = require("../../src/loaders/reader"); 
+const fs = require("fs");
+
 let cdseconds = new Set();
 
 module.exports = async (bot, message) => { 
     if (message.author.bot && message.author.id != bot.user.id) return;
 
-    let prefix = config.prefix;
+    let data = require("../../src/models/prefix.json");
+    let guildID = message.guild.id;
+
+    if (data[guildID] == undefined) {
+        let append = data;
+        append[guildID] = {
+                prefix: config.prefix
+        };
+
+        fs.writeFileSync("src/models/prefix.json", JSON.stringify(append));
+
+    }
+
+    let prefix = data[guildID].prefix;
 
     if(!message.content.startsWith(prefix)) return;
 

@@ -1,5 +1,5 @@
+const { PermissionsBitField } = require("discord.js");
 const errors = require("../../../utils/errors.js");
-const logger = require("../../../utils/logger");
 const usage = require("../../../utils/usage"); 
 
 module.exports = {
@@ -12,8 +12,9 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return message.channel.send("This command only works in a server!");
-        if(!message.member.permissions.has(["MANAGE_MESSAGES", "ADMINISTRATOR"])) return errors.noPerms(message, "MANAGE_MESSAGES");
-        if(!message.guild.me.permissions.has(["MANAGE_MESSAGES", "ADMINISTRATOR"])) return errors.lack(message.channel, "MANAGE_MESSAGES");
+
+        if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Messages");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Messages");
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "purge")] });
 
@@ -30,8 +31,8 @@ module.exports = {
                     message.channel.send(`Successfully deleted ${args[0]} messages`).then(msg => msg.delete(2000));
                 } else return;
             } catch(e) {
-                message.channel.send(`**-Unfortunately an error occurred.`);
-                logger.log(`An error occurred during the use of the purge command: \n\n ${e}`);
+                message.channel.send("Unfortunately an error occurred.");
+                console.log(e);
             }
         } else {
             

@@ -41,6 +41,7 @@ Fyre is a simple moderation bot for <a href="https://discordapp.com/" target="_b
 `$reload <command-name>` If you've just made a change to a command, and are tired of having to constantly restart the npm process each time you want your changes to go through, reload will quickly do it for you. <br />
 `$shutdown` Shuts down the bot.
 ### Other
+`prefix <string>` Change the prefix the bot answers to. Currently only one character is allowed. <br /> 
 `$botinfo` Get some stats on the bot. <br />
 `$help <command-name?>` Saying just $help will cause the bot to send you a list of the commands, if you type a command name, the bot will you give more detailed information on that command itself. <br />
 `$helpmsg <number>` Every so now and then, you may get an error from the bot, and an error code will be sent into the channel. You can look up these errors with the $helpmsg command, and see what exactly they are. <br />

@@ -19,11 +19,11 @@ class Logger {
         this.write(content, { color, tag, error: true});
     }
     static write(content, { color = 'grey', tag = 'Log', error = false } = {}) {
-        const timestamp = chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]:`); //format with time
-        const levelTag = chalk.bold(`[${tag}]:`); //bold whether log, info, warn, error
-        const text = chalk[color](this.clean(content)); //inspect the message to be sent, make it color specified
+        const timestamp = chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]:`); 
+        const levelTag = chalk.bold(`[${tag}]:`); 
+        const text = chalk[color](this.clean(content)); 
         const stream = error ? process.stderr : process.stdout; 
-        stream.write(`${timestamp} ${levelTag} ${text}\n`); //write to stream
+        stream.write(`${timestamp} ${levelTag} ${text}\n`); 
     }
     static clean(item) {
         if (typeof item === 'string') return item;

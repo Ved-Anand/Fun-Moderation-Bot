@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField } = require("discord.js");
 const errors = require("../../../utils/errors");
 const usage = require("../../../utils/usage"); 
 
@@ -15,8 +15,8 @@ module.exports = {
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "ban")] });
 
-        if(!message.member.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "Ban Members");
-        if(!message.guild.me.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "Ban Members");
+        if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Ban Members");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Ban Members");
         
         let bUser;
         try {
@@ -30,15 +30,18 @@ module.exports = {
         let bReason = args.join(" ").slice(22);
         if(!bReason) bReason = "No reason given";
 
-        if (bUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, bUser, "Ban Members");
+        if (bUser.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (bUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
-        let banEmbed = new MessageEmbed() 
+        let banEmbed = new EmbedBuilder() 
             .setDescription("**Ban**")
             .setColor("#"+((1<<24)*Math.random()|0).toString(16))
-            .addField("User Banned:", `${bUser}`)
-            .addField("Banned By:", `<@${message.author.id}>`)
-            .addField("Banned At:", ''+message.createdAt)
-            .addField("Reason:", ''+bReason);
+            .addFields(
+                { name: "User Banned:", value: bUser, inline: true },
+                { name: "Banned By:", value: `<@${message.author.id}>`, inline: true },
+                { name: "Banned At:", value: ''+message.createdAt, inline: true },
+                { name: "Reason:", value: ''+bReason, inline: true } 
+            )
 
         await message.guild.bans.create(bUser, {
             reason: bReason

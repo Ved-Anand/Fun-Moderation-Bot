@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const config = require("../src/loaders/reader"); //get data from botconfig file
 
 function fullHelp(bot, command) {
@@ -13,7 +13,7 @@ function fullHelp(bot, command) {
         var a = inf.config.aliases;
         if (inf.config.aliases == [] || inf.config.aliases == undefined) a = "No Aliases"
 
-        var SHembed = new MessageEmbed()
+        var SHembed = new EmbedBuilder()
             .setColor(config.orange)
             .setAuthor({name: "Help:"})
             .setThumbnail(bot.user.displayAvatarURL())

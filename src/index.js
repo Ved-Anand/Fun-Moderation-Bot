@@ -2,19 +2,21 @@ require("./error");
 //check that all modules are installed before proceeding
 
 const logger = require("../utils/logger"); 
-const { Client, Collection, Intents } = require("discord.js");
+const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const fs = require("fs");
 
 const bot = new Client({ 
     intents: [
-        Intents.FLAGS.GUILDS, 
-        Intents.FLAGS.GUILD_MESSAGES
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ] 
 }); 
 
-const data = require("./loaders/reader"); 
+const config = require("./loaders/reader"); 
 
 ["aliases", "commands"].forEach(x => bot[x] = new Collection()); 
 ["console", "command", "event"].forEach(x => require(`../handlers/${x}`)(bot));
 
 logger.log("Successfully loaded other files.");
-bot.login(data.token); 
+bot.login(config.token);  

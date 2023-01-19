@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require("discord.js");
 const errors = require("../../../utils/errors.js");
 const usage = require("../../../utils/usage.js");
 
@@ -11,8 +12,8 @@ module.exports = {
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
 
-        if(!message.member.permissions.has("MANAGE_ROLES") && !message.member.permissions.has("ADMINISTRATOR")) return errors.noPerms(message, "MANAGE_ROLES");
-        if (!message.guild.me.permissions.has("MANAGE_ROLES") && !message.guild.me.permissions.has("ADMINISTRATOR")) return errors.lack(message.channel, "MANAGE_ROLES");
+        if (!message.member.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Roles");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Roles");
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "unmute")] });
 
@@ -25,7 +26,11 @@ module.exports = {
 
         if(!mutee) return errors.cantfindUser(message.channel); //this might be unneccessary im not sure 
 
+        if (mutee.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (mutee.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
+
         let muterole = message.guild.roles.cache.find(r => r.name === "Muted")
+        if (muterole.position >= message.guild.members.me.roles.highest.position) return message.channel.send("Please make the Muted role have less power than mine.");
         if(!muterole) return message.channel.send("There is no mute role to remove. Mute someone first to create the role.");
 
         mutee.roles.remove(muterole);

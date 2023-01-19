@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require("discord.js");
 const errors = require("../../../utils/errors.js"); 
 
 module.exports = {
@@ -10,8 +11,9 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
-        if (!message.member.permissions.has("MANAGE_NICKNAMES") && !message.member.permissions.has("ADMINISTRATOR")) return errors.noPerms(message, "CHANGE_NICKNAMES");
-        if (!message.guild.me.permissions.has("MANAGE_NICKNAMES") && !message.guild.me.permissions.has("ADMINISTRATOR")) return errors.lack(message.channel, "CHANGE_NICKNAMES");
+
+        if (!message.member.permissions.has(PermissionsBitField.Flags.ManageNicknames) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Nicknames");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageNicknames) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Nicknames");
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "nick")] });
 
@@ -24,7 +26,8 @@ module.exports = {
 
         if (nUser.id == bot.user.id) return errors.botuser(message, "nick");
 
-        if (nUser.permissions.has("ADMINISTRATOR")) return errors.equalPerms(message, nUser, "ADMINISTRATOR");
+        if (nUser.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (nUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let nickname = args.join(" ").slice(22);
         if (!nickname) return message.channel.send("No nickname was given.");

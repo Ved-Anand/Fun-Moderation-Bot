@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js"); 
+const { EmbedBuilder, PermissionsBitField } = require("discord.js"); 
 const errors = require("../../../utils/errors.js"); 
 const usage = require("../../../utils/usage.js"); 
 
@@ -14,8 +14,8 @@ module.exports = {
 
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "kick")] });
 
-        if(!message.member.permissions.has(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.noPerms(message, "Kick Members");
-        if(!message.guild.me.permissions.has(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.lack(message.channel, "Kick Members");
+        if (!message.member.permissions.has(PermissionsBitField.Flags.KickMembers) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Kick Members");
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.KickMembers) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Kick Members");
 
         let kUser;
         try {
@@ -29,15 +29,18 @@ module.exports = {
         let kReason = args.join(" ").slice(22);
         if(!kReason) kReason = "No reason given";
 
-        if (kUser.permissions.has(["KICK_MEMBERS", "ADMINISTRATOR"])) return errors.equalPerms(message, kUser, "Kick Members");
+        if (kUser.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (kUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
-        let kickEmbed = new MessageEmbed()
+        let kickEmbed = new EmbedBuilder()
             .setDescription("**Kick**")
             .setColor("#"+((1<<24)*Math.random()|0).toString(16))
-            .addField("User Kicked:", `${kUser}`)
-            .addField("Kicked By:", `<@${message.author.id}>`)
-            .addField("Kicked On:", ''+message.createdAt)
-            .addField("Reason:", ''+kReason);
+            .addFields(
+                { name: "User Kicked:", value: kUser, inline: true },
+                { name: "Kicked By:", value: `<@${message.author.id}>`, inline: true },
+                { name: "Kicked On:", value: ''+message.createdAt, inline: true },
+                { name: "Reason:", value: ''+kReason, inline: true } 
+            )
 
         var hasKicked = 0;
         await kUser.ban(kReason).catch(() => {
