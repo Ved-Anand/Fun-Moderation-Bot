@@ -4,3 +4,4 @@ botconfig.js
 config.js
 src/commands/custom
 node_modules/
+src/plugins/*

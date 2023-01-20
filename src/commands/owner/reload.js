@@ -30,7 +30,12 @@ module.exports = {
                         delete require.cache[require.resolve(`../owner/${commandName}.js`)];
                         directory = "owner"
                     } catch {
-                        return message.channel.send("That command was not found!");
+                        try {
+                            delete require.cache[require.resolve(`../modmail/${commandName}.js`)];
+                            directory = "modmail"
+                        } catch {
+                            return message.channel.send("That command was not found!");
+                        }
                     }
                 }
             }

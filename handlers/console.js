@@ -4,10 +4,10 @@ let sending = false;
 
 logger.log("Note: If you want to exit the bot, type exit into the console.");
 
-module.exports = (bot) => {
+module.exports = async (bot) => {
     let prompt = process.openStdin();
 
-    prompt.addListener("data", res => {
+    prompt.addListener("data", async res => {
         let x = res.toString().trim().split(/ +/g)
         let args = res.toString().split(" ");
         x = x.join(" ");
@@ -16,8 +16,8 @@ module.exports = (bot) => {
         if (sending == true && !x.startsWith("send")) { 
             //if sending set to true, and user did not type send as they might be trying to turn off send mode run this
             if (x === '') return logger.log("cannot send air!");
-            bot.channels.cache.get(/* Put a channel id here: */"").send(x); 
-            //if you want to type out a message using the bot in some channel for whatever purpose and the bot is in that server, replace the above text with channel ID>
+
+            logger.info("Currently not implemented.");
         } else if (x.startsWith("send")) {
             if (sending == true) {
                 sending = false;

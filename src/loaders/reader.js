@@ -40,6 +40,8 @@ const defaultConfig = {
     "ownerid": null,
     "private": false,
     "whitelist": false,
+    "mail": false,
+    "categoryID": null,
     "status": "Moderating servers!",
     "prefix": "$",
     "privateID": "",
@@ -48,7 +50,7 @@ const defaultConfig = {
     "green": "#00ff26",
     "purple": "#d604cf",
     "users": [],
-    "notplugins": [],
+    "notplugins": []
 };
 
 const required = ['token', 'ownerid'];

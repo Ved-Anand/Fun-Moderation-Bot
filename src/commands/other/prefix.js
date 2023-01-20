@@ -18,7 +18,7 @@ module.exports = {
         if (!args[0]) return message.channel.send("No Prefix was given.");
         if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "warn")] });
         
-        if (args[0].length > 1) return message.channel.send("Prefix length is too long.");
+        if (args[0].length > 3) return message.channel.send("Prefix length is too long.");
 
         let changedPrefix = args[0];
 
