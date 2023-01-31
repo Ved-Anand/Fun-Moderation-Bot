@@ -14,9 +14,9 @@ module.exports = {
         if (message.channel instanceof DMChannel) return;
         if (!mail) return message.channel.send("Please turn on the mail option in your bot configuration file.");
 
-        let text = args;
+        let text = args.join(" ");
 
-        let channels = require("../../models/channels.json");
+        let channels = require("../../models/storage/channels.json");
 
         if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.channel.send("Couldn't find a modmail query to reply to.");
 

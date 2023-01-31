@@ -27,7 +27,7 @@ module.exports = {
 
         if (rMember.id === bot.user.id) return errors.botuser(message, "add a role to");
 
-        if (rMember.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (rMember.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
         if (rMember.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let role;

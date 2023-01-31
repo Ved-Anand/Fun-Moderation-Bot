@@ -16,13 +16,13 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !message.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return errors.noPerms(message, "Manage Server");
 
         if (!args[0]) return message.channel.send("No Prefix was given.");
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "warn")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "prefix")] });
         
         if (args[0].length > 3) return message.channel.send("Prefix length is too long.");
 
         let changedPrefix = args[0];
 
-        let data = require("../../models/prefix.json");
+        let data = require("../../models/storage/prefix.json");
 
         let append = data;
 
@@ -30,7 +30,7 @@ module.exports = {
             prefix: changedPrefix
         };
 
-        fs.writeFileSync("src/models/prefix.json", JSON.stringify(append));
+        fs.writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
 
         return message.channel.send(":white_check_mark: Changed prefix to " + args[0]);
         

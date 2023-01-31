@@ -26,7 +26,7 @@ module.exports = {
         // const fetched = message.channel.fetchMessages({limit: args[0]});
         if (args[0] < 101) {
             try {
-                message.channel.bulkDelete(args[0]);
+                await message.channel.bulkDelete(args[0]);
                 if (args[0] > 40) {
                     message.channel.send(`Successfully deleted ${args[0]} messages`).then(msg => msg.delete(2000));
                 } else return;

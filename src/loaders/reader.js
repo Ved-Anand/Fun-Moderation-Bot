@@ -38,19 +38,20 @@ try {
 const defaultConfig = {
     "token": null,
     "ownerid": null,
-    "private": false,
     "whitelist": false,
+    "users": [],
     "mail": false,
     "categoryID": null,
-    "status": "Moderating servers!",
+    "status": "Awaiting commands...",
     "prefix": "$",
-    "privateID": "",
+    "notplugins": [],
+
+    // non config options just here for ease of access
+
     "red": "#b70000",
     "orange": "#ff6a00",
     "green": "#00ff26",
     "purple": "#d604cf",
-    "users": [],
-    "notplugins": []
 };
 
 const required = ['token', 'ownerid'];

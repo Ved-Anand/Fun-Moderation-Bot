@@ -14,7 +14,7 @@ module.exports = {
         if (message.channel instanceof DMChannel) return;
         if (!mail) return message.channel.send("Please turn on the mail option in your bot configuration file.");
 
-        let channels = require("../../models/channels.json");
+        let channels = require("../../models/storage/channels.json");
         if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.channel.send("Couldn't find a modmail query to close.");
 
         let channel, finalElem, user;
@@ -34,7 +34,7 @@ module.exports = {
         if (!append[message.guild.id].includes(user.id)) return message.channel.send("Couldn't find a modmail thread by this name. If for some reason there is a channel of this name, feel free to delete it yourself.");
 
         append[message.guild.id].splice(finalElem, 1);
-        fs.writeFileSync("src/models/channels.json", JSON.stringify(append));
+        fs.writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
 
         try {
             user.send("A moderator closed this thread. You can reopen it at any time by sending another message."); 

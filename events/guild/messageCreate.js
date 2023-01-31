@@ -7,6 +7,10 @@ let cdseconds = new Set();
 module.exports = async (bot, message) => { 
     if (message.author.bot) return;
 
+    if (config.whitelist) {
+        if (!config.users.includes(message.author.id)) return;
+    }
+
     if (message.channel instanceof DMChannel && config.mail != false) {
 
         if (typeof config.mail != "string") {
@@ -19,7 +23,7 @@ module.exports = async (bot, message) => {
         modmail.execute(bot, message, guild);
     } else {
 
-        let data = require("../../src/models/prefix.json");
+        let data = require("../../src/models/storage/prefix.json");
         let guildID = message.guild.id;
 
         if (data[guildID] == undefined) {
@@ -28,7 +32,7 @@ module.exports = async (bot, message) => {
                     prefix: config.prefix
             };
 
-            fs.writeFileSync("src/models/prefix.json", JSON.stringify(append));
+            fs.writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
 
         }
 
@@ -37,13 +41,6 @@ module.exports = async (bot, message) => {
         require("../../src/models/mailCheck")(bot, message, message.guild, prefix);
 
         if(!message.content.startsWith(prefix)) return;
-
-        if (config.private) { 
-            if (message.channel.type == "dm" || message.guild.id != config.privateID) return;
-        }
-        if (config.whitelist) {
-            if (!config.users.includes(message.author.id)) return;
-        }
 
         let args = message.content.slice(prefix.length).trim().split(/ +/g);
         let cmd = args.shift().toLowerCase();

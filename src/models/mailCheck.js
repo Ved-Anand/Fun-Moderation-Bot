@@ -2,7 +2,16 @@ module.exports = async (bot, message, guild, prefix)  => {
 
     if (message.content.startsWith(prefix)) return;
 
-    let channels = require("./channels.json");
+    // block check
+    let blocks = require("./storage/blocks.json");
+    let blocked = false;
+    Object.keys(blocks).forEach(elem => {
+        if (blocks[elem].includes(message.author.id)) return blocked = true;
+    });
+    
+    if (blocked) return message.channel.send("You can't message someone you've just blocked from using the mail service.");
+
+    let channels = require("./storage/channels.json");
 
     if (channels[guild.id] == undefined || channels[guild.id].length == 0) return false;
 

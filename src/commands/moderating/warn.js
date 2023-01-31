@@ -23,7 +23,7 @@ module.exports = {
 
         if (!warnee) return message.channel.send("User not found.");
 
-        if (warnee.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (warnee.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
         if (warnee.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
         
         if (warnee.id === bot.user.id) return errors.botuser(message, "warn");

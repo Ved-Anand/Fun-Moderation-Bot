@@ -18,7 +18,7 @@ module.exports = {
             return message.channel.send({ embeds: [embed] });
         } else {
 
-            let data = require("../../models/prefix.json");
+            let data = require("../../models/storage/prefix.json");
 
             let Sembed = new EmbedBuilder()
                 .setColor(purple)
@@ -27,7 +27,7 @@ module.exports = {
                 })
                 .setThumbnail(bot.user.avatarURL()) 
                 .setTimestamp()
-                .setDescription(`The bot prefix is ${data[message.guild.id].prefix} \n To get more info on a specific command, type $help command name \n Note: Most of these commands will only work in a server. \n These are the bot's commands: `)
+                .setDescription(`The bot prefix is ${data[message.guild.id].prefix} \n To get more info on a specific command, type ${data[message.guild.id].prefix}help command name \n Note: Most of these commands will only work in a server. \n These are the bot's commands: `)
                 //Automate below commands later to just iterate through most folders
                 .addFields({
                     name: `Commands:`, value: "``8ball`` ``dog`` ``addrole`` ``ban`` ``kick`` ``mute`` ``purge`` ``removerole`` ``unmute`` ``warn`` ``botinfo`` ``helpmsg`` ``help`` ``ping`` ``serverinfo`` ``urban``", inline: true});

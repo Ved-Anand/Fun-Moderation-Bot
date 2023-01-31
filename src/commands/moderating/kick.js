@@ -29,7 +29,7 @@ module.exports = {
         let kReason = args.join(" ").slice(22);
         if(!kReason) kReason = "No reason given";
 
-        if (kUser.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (kUser.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
         if (kUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let kickEmbed = new EmbedBuilder()

@@ -26,7 +26,7 @@ module.exports = {
 
         if(!mutee) return errors.cantfindUser(message.channel); //this might be unneccessary im not sure 
 
-        if (mutee.roles.highest.position >= message.guild.members.me.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (mutee.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
         if (mutee.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let muterole = message.guild.roles.cache.find(r => r.name === "Muted")

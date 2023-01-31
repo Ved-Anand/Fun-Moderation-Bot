@@ -17,7 +17,7 @@ function fullHelp(bot, command) {
             .setColor(config.orange)
             .setAuthor({name: "Help:"})
             .setThumbnail(bot.user.displayAvatarURL())
-            .setDescription(`\n\n**Command:** ${'' + inf.config.name}\n**Description:** ${'' + inf.config.description || "No Description"}\n**Usage:** ${'' + inf.config.usage || "No Usage"}\n**Required permissions:** ${'' + inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${''+ a}`);
+            .setDescription(`\n\n**Command:** ${'' + inf.config.name}\n**Description:** ${'' + inf.config.description || "No Description"}\n**Usage:** ${'' + inf.config.usage || "No Usage"}\n**Required permissions:** ${'' + inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${''+ a.join(", ")}`);
         return SHembed;
     } else {
         return false;
