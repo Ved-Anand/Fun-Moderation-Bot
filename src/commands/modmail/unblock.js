@@ -15,16 +15,17 @@ module.exports = {
 
         let channels = require("../../models/storage/channels.json");
         if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) {
-            if (!args[0].length > 5) return message.channel.send("Is this a modmail query? Couldn't find it.");
+            if (!args[0] || args[0].length < 5) return message.channel.send("Is this a modmail query? Couldn't find it.");
             
             let blocks = require("../../models/storage/blocks.json");
-            let location = blocks[message.guild.id].indexOf(args[0]);
+            if (blocks[message.guild.id] == undefined || blocks[message.guild.id].length == 0) return message.channel.send("This user doesn't appear to be blocked.");
+            let location = blocks[message.guild.id].indexOf(args[0].replace("<", "").replace("@", "").replace(">", ""));
             if (location == -1) return message.channel.send("Couldn't find this User ID. Are they even blocked?");
 
             blocks[message.guild.id].splice(location, 1);
             fs.writeFileSync("src/models/storage/blocks.json", JSON.stringify(blocks));
 
-            let username = await bot.users.fetch(args[0]).catch(() => null);
+            let username = await bot.users.fetch(args[0].replace("<", "").replace("@", "").replace(">", "")).catch(() => null);
 
             username.send("You have been unblocked.");
             return message.channel.send(`:white_check_mark: Unblocked ${username.username}.`);
@@ -47,7 +48,7 @@ module.exports = {
         let append = channels;
         if (!append[message.guild.id].includes(user.id)) return message.channel.send("Couldn't find a modmail thread by this name.");
 
-        //now we do the blocking
+        //now we do the unblocking
         let blocks = require("../../models/storage/blocks.json");
         if (blocks[message.guild.id] == undefined || blocks[message.guild.id].length == 0) return message.channel.send("Couldn't find anyone who was blocked.");
 

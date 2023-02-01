@@ -37,7 +37,7 @@ module.exports = {
         fs.writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
 
         try {
-            user.send("A moderator closed this thread. You can reopen it at any time by sending another message."); 
+            user.send("A moderator closed this thread. You can reopen it at any time by sending another message (unless you're blocked.)"); 
             return channel.delete();
         } catch (e) {
             console.log(e);
