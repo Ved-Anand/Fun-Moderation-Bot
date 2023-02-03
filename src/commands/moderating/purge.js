@@ -16,7 +16,7 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Messages");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Messages");
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "purge")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "purge", message)] });
 
         if(isNaN(args[0])) return message.channel.send(`Please send a number to delete not a word.`);
 

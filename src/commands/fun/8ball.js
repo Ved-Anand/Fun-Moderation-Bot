@@ -8,7 +8,7 @@ module.exports = {
         permissions: "none"
     },
     run: async (bot, message, args) => {
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "8ball")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "8ball", message)] });
 
         if(!args[2]) return message.channel.send("Please ask a full question.");
         //questions should be at least 3 words long

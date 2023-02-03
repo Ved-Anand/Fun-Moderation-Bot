@@ -16,7 +16,7 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Roles");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Roles");
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "mute")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "mute", message)] });
 
         let mutee;
         try {
@@ -27,7 +27,7 @@ module.exports = {
 
         if(mutee.id == bot.user.id) return errors.botuser(message, "mute");
 
-        if (mutee.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (mutee.roles.highest.position >= message.guild.members.me.roles.highest.position || mutee.id == message.guild.ownerId) return message.channel.send("That user has more permissions than me.");
         if (mutee.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let reason = args.join(" ").slice(22);

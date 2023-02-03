@@ -16,7 +16,7 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Roles");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageRoles) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Roles");
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "addrole")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "addrole", message)] });
 
         let rMember;
         try {
@@ -34,6 +34,7 @@ module.exports = {
         if(!role) return errors.noRole(message.channel);
         
         if (role.position >= message.guild.members.me.roles.highest.position) return message.channel.send("I can't give someone a role that has more power than mine.");
+        if (rMember.roles.highest.position >= message.member.roles.highest.position || rMember.id == message.guild.ownerId) return message.channel.send("You can't give a role to someone who has more permissions than you.");
 
         if(rMember.roles.cache.some(i => i.name === role.name)) {
             return message.channel.send(`:x: User ${rMember.displayName} already has that role.`)

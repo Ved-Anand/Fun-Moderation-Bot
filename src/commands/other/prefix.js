@@ -16,7 +16,7 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !message.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return errors.noPerms(message, "Manage Server");
 
         if (!args[0]) return message.channel.send("No Prefix was given.");
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "prefix")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "prefix", message)] });
         
         if (args[0].length > 3) return message.channel.send("Prefix length is too long.");
 

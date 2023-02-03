@@ -13,7 +13,7 @@ module.exports = {
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "unban")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "unban", message)] });
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Ban Members");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Ban Members");

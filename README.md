@@ -57,7 +57,7 @@ These options go in the botconfig.json file.
 | Option | Default | Type | Description |
 | ------ | ------- | --- | ----------- |
 | **token** | None | String | **Required** - The bot's token. You can find this in your application page for this bot. |
-| **ownerid** | None | String | **Required** - Your discord user id. If you turn on developer mode in discord settings and right click on your profile, you can copy the ID there. |
+| ownerid | None | String | **Recommended** - Your discord user id. Some commands off limits without this. |
 | whitelist | false | Boolean | If this is set to true, only messages that were sent by users (see option users) will be parsed. |
 | users | String[] | Array | If whitelist is true, then user ID's in this array will be the only ones able to use the bot. |
 | mail | false | Boolean | Setting this option to true turns on the user's modmail feature. |

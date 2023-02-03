@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
-const { prefix, purple } = require("../../loaders/reader");
+const { purple } = require("../../loaders/reader");
 const gethelp = require("../../../utils/usage.js");
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
     run: async (bot, message, args) => {
         if(args[0]) {
             let command = args[0];
-            let embed = gethelp.fullHelp(bot, command);
+            let embed = gethelp.fullHelp(bot, command, message);
             if (!embed) return message.channel.send("That command was not found.");
             return message.channel.send({ embeds: [embed] });
         } else {

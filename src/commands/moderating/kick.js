@@ -12,7 +12,7 @@ module.exports = {
     run: async (bot, message, args) => {
         if (message.channel.type == "dm") return;
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "kick")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "kick", message)] });
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.KickMembers) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Kick Members");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.KickMembers) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Kick Members");
@@ -29,7 +29,7 @@ module.exports = {
         let kReason = args.join(" ").slice(22);
         if(!kReason) kReason = "No reason given";
 
-        if (kUser.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (kUser.roles.highest.position >= message.guild.members.me.roles.highest.position || kUser.id == message.guild.ownerId) return message.channel.send("That user has more permissions than me.");
         if (kUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let kickEmbed = new EmbedBuilder()

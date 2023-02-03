@@ -54,7 +54,7 @@ const defaultConfig = {
     "purple": "#d604cf",
 };
 
-const required = ['token', 'ownerid'];
+const required = ['token'];
 const finalConfig = Object.assign({}, defaultConfig); 
 
 for (const [prop, value] of Object.entries(userConfig)) { 

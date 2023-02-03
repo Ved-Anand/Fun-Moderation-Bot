@@ -15,7 +15,7 @@ module.exports = {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageNicknames) && !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.noPerms(message, "Manage Nicknames");
         if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageNicknames) && !message.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) return errors.lack(message.channel, "Manage Nicknames");
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "nick")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "nick", message)] });
 
         let nUser;
         try {
@@ -26,14 +26,14 @@ module.exports = {
 
         if (nUser.id == bot.user.id) return errors.botuser(message, "nick");
 
-        if (nUser.roles.highest.position >= message.guild.members.me.roles.highest.position) return message.channel.send("That user has more permissions than me.");
+        if (nUser.roles.highest.position >= message.guild.members.me.roles.highest.position || nUser.id == message.guild.ownerId) return message.channel.send("That user has more permissions than me.");
         if (nUser.roles.highest.position >= message.member.roles.highest.position && message.author.id != message.guild.ownerId) return message.channel.send("You can't use this command on this user.");
 
         let nickname = args.join(" ").slice(22);
         if (!nickname) return message.channel.send("No nickname was given.");
 
         try {
-            nUser.setNickname(nickname);
+            await nUser.setNickname(nickname);
             return message.channel.send(`Changed ${prevName}'s name to ${nickname}.`);
         } catch(e) {
             console.log(e);

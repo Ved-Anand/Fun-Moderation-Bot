@@ -12,7 +12,7 @@ module.exports = {
     run: async (bot, message, args) => {
         var targetWord = args == "" ? urban.random() : urban(args);
 
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "urban")] });
+        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "urban", message)] });
 
 		targetWord.first(function(json) {
 			if (json) {

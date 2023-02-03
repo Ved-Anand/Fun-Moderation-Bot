@@ -7,7 +7,8 @@ module.exports = {
         aliases: ["find", "calc", "calculate"]
     },
     run: async (bot, message, args) => {
-        if (message.author.id != ownerid) return;
+        if (ownerid == null && message.author.id == message.guild.ownerId) return message.channel.send("You need to put in your ID in the ownerid flag of the botconfig file.");
+        if (ownerid == null || message.author.id != ownerid) return;
 
         let toEval = args.join(" ");
 
