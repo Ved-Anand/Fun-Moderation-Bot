@@ -27,11 +27,12 @@ Note: Each command here also has aliases that aren't listed. If you run `$help <
 `$unban <user> <reason?>` Unban someone you've banned. You can use the id of the user as well. <br />
 `$kick <user> <reason?>` Someone getting on your nerves, yet not enough so that you would ban them? The kick command is right for you. <br />
 `$mute <user> <reason?>` Stop someone from talking if they are spamming/etc. <br />
+`$tempmute <user> <time>` Temporarily mute someone anywhere for 10s, 1d, 3h, etc. <br />
 `$nick <user>` Change someone's nickname with this command. <br />
 `$purge <amount>` This command will let you quickly delete messages from a channel. <br />
 `$removerole <user> <role-name>` The counter to $addrole, this command will let you quickly remove a role from someone. <br />
 `$unmute <user>` The counter to $mute, this command will unmute someone who is muted, and let them talk again. <br />
-`$warn <user> <reason>` Someone starting to misbehave. Warn them to see if they'll stop. <br />
+`$warn <user> <reason?>` Someone starting to misbehave. Warn them to see if they'll stop. <br />
 ### Fun
 `$8ball <question>` Get an answer to a question you may have from the magical 8ball. <br />
 `$cat` If you are a cat person. <br />
@@ -46,7 +47,7 @@ Note: Each command here also has aliases that aren't listed. If you run `$help <
 `$help <command-name?>` Saying just $help will cause the bot to send you a list of the commands, if you type a command name, the bot will you give more detailed information on that command itself. <br />
 `$ping` Get's the bot's ping. <br />
 `$serverinfo` Get some stats on the server you're in. <br />
-`$urban <query>` Ask the urban dictionary about something. <br />
+`$urban <query?>` Ask the urban dictionary about something. No query will return a random urban dictionary result. <br />
 ### ModMail
 `$anonreply <text>` Anonymously reply to a modmail thread started by someone. <br />
 `$block` Block someone from using the modmail service. Only usable in a modmail channel for that user. <br />

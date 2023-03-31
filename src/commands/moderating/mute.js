@@ -39,9 +39,9 @@ module.exports = {
             } else mutee = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         } catch (e) {return message.reply("Couldn't find user.");}
 
-        if(!mutee) return errors.cantfindUser(message.channel);
+        if (!mutee) return errors.cantfindUser(message.channel);
 
-        if(mutee.id == bot.user.id) return errors.botuser(message, "mute");
+        if (mutee.id == bot.user.id) return errors.botuser(message, "mute");
 
         let authorid = (message instanceof ChatInputCommandInteraction) ? message.user.id : message.author.id;
 
@@ -49,11 +49,11 @@ module.exports = {
         if (mutee.roles.highest.position >= message.member.roles.highest.position && authorid != message.guild.ownerId) return message.reply("You can't use this command on this user.");
 
         let reason = (message instanceof ChatInputCommandInteraction) ? message.options.getString('reason') : args.join(" ").slice(22);
-        if(!reason || reason == '') reason = "No reason given";
+        if (!reason || reason == '') reason = "No reason given";
 
         let muterole = message.guild.roles.cache.find(r => r.name === "Muted") 
 
-        if(!muterole) { // make a mute role 
+        if (!muterole) { // make a mute role 
             try{
                 let muterole = await message.guild.roles.create({
                     name: "Muted",

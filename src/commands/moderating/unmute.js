@@ -47,7 +47,21 @@ module.exports = {
         if (muterole.position >= message.guild.members.me.roles.highest.position) return message.reply("Please make the Muted role have less power than mine.");
         if (!muterole) return message.reply("There is no mute role to remove. Mute someone first to create the role.");
 
-        await mutee.roles.remove(muterole);
-        return (message instanceof ChatInputCommandInteraction) ? message.reply(`User ${mutee.user.username} was unmuted.`) : message.channel.send(`User ${mutee.user.username} was unmuted.`);
+        try {
+            if (!mutee.roles.cache.has(muterole)) {
+                // now we check for tempmute.
+                if (mutee.isCommunicationDisabled()) {
+                    mutee.disableCommunicationUntil(null);
+                } else {
+                    return message.reply(`:x: ${mutee.displayName} isn't muted!`);
+                }
+            }
+ 
+            await mutee.roles.remove(muterole);
+            return (message instanceof ChatInputCommandInteraction) ? message.reply(`User ${mutee.user.username} was unmuted.`) : message.channel.send(`User ${mutee.user.username} was unmuted.`);
+        } catch (err) {
+            console.log(err);
+            return message.reply(`:x: Unfortunately I was unable to unmute ${mutee.displayName}`);
+        }
     }
 }
