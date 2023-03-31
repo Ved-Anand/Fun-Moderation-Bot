@@ -49,7 +49,9 @@ Note: Each command here also has aliases that aren't listed. If you run `$help <
 `$urban <query>` Ask the urban dictionary about something. <br />
 ### ModMail
 `$anonreply <text>` Anonymously reply to a modmail thread started by someone. <br />
+`$block` Block someone from using the modmail service. Only usable in a modmail channel for that user. <br />
 `$close` If used in a modmail text response channel, close the thread. <br />
+`$unblock <id?>` Unblocks someone from the modmail service. Id unneeded if used in a modmail channel for that user. If not, id required. <br />
 
 ## Bot Options:
 These options go in the botconfig.json file.
