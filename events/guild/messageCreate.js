@@ -1,5 +1,5 @@
 const config = require("../../src/loaders/reader"); 
-const fs = require("fs");
+const { writeFileSync } = require("fs");
 const { DMChannel } = require("discord.js");
 
 let cdseconds = new Set();
@@ -23,6 +23,8 @@ module.exports = async (bot, message) => {
         modmail.execute(bot, message, guild);
     } else {
 
+        if (message.channel instanceof DMChannel) return;
+
         let data = require("../../src/models/storage/prefix.json");
         let guildID = message.guild.id;
 
@@ -32,7 +34,7 @@ module.exports = async (bot, message) => {
                     prefix: config.prefix
             };
 
-            fs.writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
+            writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
 
         }
 

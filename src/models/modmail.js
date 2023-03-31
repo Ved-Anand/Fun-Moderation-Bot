@@ -1,5 +1,5 @@
 const { ChannelType } = require("discord.js");
-const fs = require('fs');
+const { writeFileSync } = require('fs');
 const { categoryID } = require("../loaders/reader");
 
 module.exports.execute = async (bot, message, guild) => {
@@ -30,7 +30,7 @@ module.exports.execute = async (bot, message, guild) => {
 
     } else append[guild.id] = [message.author.id];
 
-    fs.writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
+    writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
 
     let hoisted = false;
     if (categoryID != null) hoisted = true;

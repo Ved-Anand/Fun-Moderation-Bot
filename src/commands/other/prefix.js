@@ -1,9 +1,19 @@
-const { PermissionsBitField } = require("discord.js");
+const { PermissionsBitField, ChatInputCommandInteraction, SlashCommandBuilder } = require("discord.js");
 const errors = require("../../../utils/errors.js");
 const usage = require("../../../utils/usage"); 
-const fs = require("fs");
+const { writeFileSync } = require("fs");
 
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("prefix")
+        .setDescription("Change the prefix")
+        .addStringOption(option => {
+            return option
+                .setName('prefix')
+                .setDescription("The new prefix")
+                .setRequired(true)
+        })
+        .setDMPermission(false),
     config: {
         name: "prefix",
         usage: "prefix <string>",
@@ -11,29 +21,35 @@ module.exports = {
         permissions: "Manage Server"
     },
     run: async (bot, message, args) => {
-        if (message.channel.type == "dm") return;
 
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !message.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return errors.noPerms(message, "Manage Server");
+        try {
+            if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !message.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return errors.noPerms(message, "Manage Server");
 
-        if (!args[0]) return message.channel.send("No Prefix was given.");
-        if(args[0] == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "prefix", message)] });
-        
-        if (args[0].length > 3) return message.channel.send("Prefix length is too long.");
+            let toCheck;
+            (message instanceof ChatInputCommandInteraction) ? toCheck = message.options.getString("prefix") : toCheck = args[0];
 
-        let changedPrefix = args[0];
+            if (toCheck == null || !toCheck) return message.channel.send("No Prefix was given.");
+            if (toCheck == "help") return message.channel.send({ embeds: [usage.fullHelp(bot, "prefix", message)] });
+            
+            if (toCheck.length > 3) return (message instanceof ChatInputCommandInteraction) ? message.reply("Prefix length is too long.") : message.channel.send("Prefix length is too long.");
 
-        let data = require("../../models/storage/prefix.json");
+            let changedPrefix = toCheck;
 
-        let append = data;
+            let data = require("../../models/storage/prefix.json");
 
-        append[message.guild.id] = {
-            prefix: changedPrefix
-        };
+            let append = data;
 
-        fs.writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
+            append[message.guild.id] = {
+                prefix: changedPrefix
+            };
 
-        return message.channel.send(":white_check_mark: Changed prefix to " + args[0]);
-        
+            writeFileSync("src/models/storage/prefix.json", JSON.stringify(append));
+
+            return (message instanceof ChatInputCommandInteraction) ? message.reply(":white_check_mark: Changed prefix to " + toCheck) : message.channel.send(":white_check_mark: Changed prefix to " + toCheck);
+        } catch (err) {
+            message.reply("Unfortunately an error occurred.");
+            console.error(err);
+        }
     }
 
 }

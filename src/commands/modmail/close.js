@@ -1,8 +1,12 @@
-const { DMChannel } = require("discord.js");
 const { mail } = require("../../loaders/reader");
-const fs = require("fs");
+const { SlashCommandBuilder, ChatInputCommandInteraction } = require("discord.js");
+const { writeFileSync } = require("fs");
 
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('close')
+        .setDescription('Close a modmail thread. Only usable inside one.')
+        .setDMPermission(false),
     config: {
         name: "close",
         usage: ["close"],
@@ -11,11 +15,10 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        if (message.channel instanceof DMChannel) return;
-        if (!mail) return message.channel.send("Please turn on the mail option in your bot configuration file.");
+        if (!mail) return message.reply("Please turn on the mail option in your bot configuration file.");
 
         let channels = require("../../models/storage/channels.json");
-        if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.channel.send("Couldn't find a modmail query to close.");
+        if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.reply("Couldn't find a modmail query to close.");
 
         let channel, finalElem, user;
 
@@ -27,21 +30,21 @@ module.exports = {
                 finalElem = i;
                 break;
             }
-            if (i == channels[message.guild.id].length - 1) return message.channel.send("Couldn't find a modmail thread by this name. Are you using this in the correct channel?");
+            if (i == channels[message.guild.id].length - 1) return message.reply("Couldn't find a modmail thread by this name. Are you using this in the correct channel?");
         }
 
         let append = channels;
-        if (!append[message.guild.id].includes(user.id)) return message.channel.send("Couldn't find a modmail thread by this name. If for some reason there is a channel of this name, feel free to delete it yourself.");
+        if (!append[message.guild.id].includes(user.id)) return message.reply("Couldn't find a modmail thread by this name. If for some reason there is a channel of this name, feel free to delete it yourself.");
 
         append[message.guild.id].splice(finalElem, 1);
-        fs.writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
+        writeFileSync("src/models/storage/channels.json", JSON.stringify(append));
 
         try {
             user.send("A moderator closed this thread. You can reopen it at any time by sending another message (unless you're blocked.)"); 
             return channel.delete();
         } catch (e) {
             console.log(e);
-            return message.channel.send("Unfortunately an error occurred and I was unable to close this channel. Check my permissions?");
+            return (message instanceof ChatInputCommandInteraction) ? message.reply("Unfortunately an error occurred and I was unable to close this channel. Check my permissions?") : message.channel.send("Unfortunately an error occurred and I was unable to close this channel. Check my permissions?");
         }
         
 

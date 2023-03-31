@@ -10,6 +10,7 @@ module.exports = async bot => {
     configchecker.checkWhitelist(bot, config);
    
     require("../../src/loaders/pluginloader")(bot, config); 
+
     bot.registerCommandAlias = function (alias, command) {
         bot.aliases.set(alias, command);
     }

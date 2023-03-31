@@ -21,6 +21,4 @@ module.exports = (bot, config) => {
 
     logger.log(`Successfully loaded ${plugins.length - nonJsPlugins} plugin(s).`);
   }
-
-  logger.info(`${bot.user.username} is 100% online!`);
 }

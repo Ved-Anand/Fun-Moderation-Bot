@@ -11,7 +11,7 @@ function fullHelp(bot, command, message) {
         }
 
         var a = inf.config.aliases;
-        if (inf.config.aliases == [] || inf.config.aliases == undefined) a = "No Aliases";
+        if (inf.config.aliases == [] || inf.config.aliases == undefined) a = ["There are no aliases"];
 
         let data = require("../src/models/storage/prefix.json");
 
@@ -19,7 +19,7 @@ function fullHelp(bot, command, message) {
             .setColor(config.orange)
             .setAuthor({name: "Help:"})
             .setThumbnail(bot.user.displayAvatarURL())
-            .setDescription(`\n\n**Command:** ${'' + inf.config.name}\n**Description:** ${'' + inf.config.description || "No Description"}\n**Usage:** ${data[message.guild.id].prefix + inf.config.usage || "No Usage"}\n**Required permissions:** ${'' + inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${''+ a.join(", ")}`);
+            .setDescription(`\n\n**Command:** ${'' + inf.config.name}\n**Description:** ${'' + inf.config.description || "No Description"}\n**Usage:** ${data[message.guild.id].prefix + inf.config.usage || "No Usage"}\n**Required permissions:** ${'' + inf.config.permissions || "Bot Owner!"}\n**Aliases:** ${''+ a.join(", ") || a}`);
         return SHembed;
     } else {
         return false;

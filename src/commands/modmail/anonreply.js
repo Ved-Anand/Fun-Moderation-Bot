@@ -1,7 +1,17 @@
-const { DMChannel } = require("discord.js");
 const { mail } = require("../../loaders/reader");
+const { SlashCommandBuilder, ChatInputCommandInteraction } = require("discord.js");
 
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('anonreply')
+        .setDescription('Anonymously replies to a modmail query. This requires modmail to be on in botconfig!')
+        .addStringOption(option => {
+            return option
+                .setName('text')
+                .setDescription("Text to anonymously send.")
+                .setRequired(true)
+        })
+        .setDMPermission(false),
     config: {
         name: "anonreply",
         aliases: ["replyanon", "anon", "anonymous"],
@@ -11,14 +21,13 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        if (message.channel instanceof DMChannel) return;
-        if (!mail) return message.channel.send("Please turn on the mail option in your bot configuration file.");
+        if (!mail) return message.reply("Please turn on the mail option in your bot configuration file.");
 
-        let text = args.join(" ");
+        let text = (message instanceof ChatInputCommandInteraction) ? message.options.getString("text") : args.join(" ");
 
         let channels = require("../../models/storage/channels.json");
 
-        if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.channel.send("Couldn't find a modmail query to reply to.");
+        if (channels[message.guild.id] == undefined || channels[message.guild.id].length == 0) return message.reply("Couldn't find a modmail query to reply to.");
 
         let channel, finalElem, user;
 
@@ -30,9 +39,10 @@ module.exports = {
                 finalElem = i;
                 break;
             }
-            if (i == channels[message.guild.id].length - 1) return message.channel.send("Couldn't find a modmail thread by this name. Are you using this in the correct channel?");
+            if (i == channels[message.guild.id].length - 1) return message.reply("Couldn't find a modmail thread by this name. Are you using this in the correct channel?");
         }
 
+        message.reply({ content: `Sent ${text} anonymously.`, ephemeral: true});
         return user.send(`**Moderator: ** ${text}`);
 
     }
