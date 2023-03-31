@@ -60,7 +60,7 @@ These options go in the botconfig.json file.
 | ownerid | None | String | **Recommended** - Your discord user id. Some commands off limits without this. |
 | whitelist | false | Boolean | If this is set to true, only messages that were sent by users (see option users) will be parsed. |
 | users | String[] | Array | If whitelist is true, then user ID's in this array will be the only ones able to use the bot. |
-| mail | false | Boolean | Setting this option to true turns on the user's modmail feature. |
+| mail | false | String | Setting this option to a string of a guild ID will automatically turn on modmail in said guild. |
 | categoryID | null | String | If modmail is on, then when a user DM's the bot, when a help channel is being created if this is set, the channel will be created underneath a specific category.
 | status | Awaiting commands... | String | The bot's displayed activity. |
 | prefix | $ | String | The bot's default prefix. Keep in mind you can also just change this with the prefix command. |
